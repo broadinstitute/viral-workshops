@@ -35,12 +35,16 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 
 Describe what's in the tables and what workflows are pre-loaded.
 
+https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra
+
+
 ## Walkthrough
 
 ### Clone the workspace
 
 ### Run assemble_denovo
 
+### Evaluating results
 
 ## Other related resources
 

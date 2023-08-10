@@ -1,7 +1,3 @@
-# Viral read alignment and variant calling
-
-TO DO - examples with EBOV genomes
-
 # Viral read alignment, variant calling, and consensus calling
 
 This is a walkthrough demonstrating alignment, variant calling, and consensus calling
@@ -69,6 +65,8 @@ But these steps are generalizable to any scenario or organism where you want to 
 
 ### Clone the workspace
 
+TO DO
+
 ### Run align_and_plot
 
 Click on the Workflows tab on the top. This should lead to a list of analysis workflows that have already been preloaded into your
@@ -114,7 +112,25 @@ The resulting workflow launch page should look like this when you are ready (opt
 Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
 status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.
 
+### Wait for job completion
+
+You will receive an email when each of your submissions complete (along with information about whether they succeeded or failed).
+Additionally, you can also click on the JOB HISTORY tab at the top of your workspace to check on the status of your analyses in progress.
+When both `assemble_refbased` and `align_and_plot` are complete, you can move on to evaluating the results. The Job History tab should
+look like this when the submissions are complete:
+
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/c0cf3212-9f3f-4b55-8bf6-943561230852">
+
+Depending on some predictable and some unpredictable factors, the `align_and_plot` jobs should complete within 15 minutes and the
+`assemble_refbased` within 30, but they may take much longer (2-3x longer). No user intervention is required while you await results,
+and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether
+you launched jobs on 1 or 1,000 samples.
+
 ### Evaluating results
+
+You can examine the outputs and results of each step of each job via the Job History page, however, for large submissions, it is easier
+to view the saved top level outputs in the data table--in this case, the `ebov` table. The `ebov` table now has a number of additional output
+columns, including aligned BAM files, coverage plots, consensus genomes (FASTA), variants (VCF), and various numeric counts and metrics.
 
 #### Coverage plot outputs
 

@@ -39,7 +39,26 @@ produces plots and metrics, and calls a consensus assembly and intrahost variant
 
 ## Terra workspace
 
-Describe what's in the tables and what workflows are pre-loaded.
+For simplicity, we have already loaded in the read data and the reference genomes. If you are starting from scratch on a new
+organism, what we did to populate these workspaces was:
+
+1. Imported the following workflows from the Broad Institute Viral Genomics
+[Dockstore collection](https://dockstore.org/organizations/BroadInstitute/collections/pgs):
+`fetch_sra_to_bam`, `fetch_annotations`, `align_and_plot`, `assemble_refbased`.
+2. Created a Terra table called `ebov` with the four SRA accessions:
+| entity:ebov_id | sra_accession | biosample_accession |
+| --- | --- | --- |
+| G5723.1 | SRR1972917 | SAMN03254208 |
+| G5731.1 | SRR1972918 | SAMN03254209 |
+| G5732.1 | SRR1972919 | SAMN03254210 |
+| G5735.2 | SRR1972920 | SAMN03254213 |
+3. Ran the `fetch_sra_to_bam` workflow on all rows of the `ebov` table to download reads from all four SRA accessions,
+populating more columns of the table with raw reads and basic run/sample metadata.
+4. Ran the `fetch_annotations` workflow (on file paths, not data tables) to download the reference genome (Ebola Makona C15)
+and manually added a pointer to the output fasta file in the Workspace Data table as `workspace.ref_genome_ebov`.
+
+The above steps do not take very long (a few minutes here and there) but were not worth spending the time on in this workshop.
+But these steps are generalizable to any scenario or organism where you want to align SRA reads against a Genbank reference genome.
 
 ## Walkthrough
 

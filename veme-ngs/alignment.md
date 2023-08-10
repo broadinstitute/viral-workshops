@@ -71,7 +71,48 @@ But these steps are generalizable to any scenario or organism where you want to 
 
 ### Run align_and_plot
 
+Click on the Workflows tab on the top. This should lead to a list of analysis workflows that have already been preloaded into your
+workspace. One of them is `align_and_plot`. Click on `align_and_plot`.
+
+This will lead to a workflow launch page where you will need to set the parameters and inputs before launching your analyses.
+Make sure to set the following:
+- The `align_and_plot` "Version:" should be already set to `master`, but make sure it is set as such.
+- "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
+- "Step 1 -- Select root entity type:" should be set to `ebov`.
+- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `ebov` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected ebovs".
+- In the inputs table, we will need to populate the following required inputs:
+  - `align.reads_unmapped_bam` (required) should be set to `this.reads_ubam`
+  - `align.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
+
+The resulting workflow launch page should look like this when you are ready:
+
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/7885694a-d4ac-4ada-a904-1b108e8d53f5">
+
+Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
+status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.
+
 ### Run assemble_refbased
+
+Click on the Workflows tab on the top. This should lead to a list of analysis workflows that have already been preloaded into your
+workspace. One of them is `assemble_refbased`. Click on `assemble_refbased`.
+
+This will lead to a workflow launch page where you will need to set the parameters and inputs before launching your analyses.
+Make sure to set the following:
+- The `assemble_refbased` "Version:" should be already set to `master`, but make sure it is set as such.
+- "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
+- "Step 1 -- Select root entity type:" should be set to `ebov`.
+- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `ebov` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected ebovs".
+- In the inputs table, we will need to populate the following inputs:
+  - `assemble_refbased.reads_unmapped_bams` (required) should be set to `this.reads_ubam`
+  - `assemble_refbased.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
+  - `assemble_refbased.sample_name` (optional) could be set to `this.ebov_id` to make for cleaner filenames and fasta headers, if desired
+
+The resulting workflow launch page should look like this when you are ready (optional input not shown here, as it is a page or two down below):
+
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/1d5db305-edc2-4242-95e0-1ee9e58229ea">
+
+Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
+status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.
 
 ### Evaluating results
 

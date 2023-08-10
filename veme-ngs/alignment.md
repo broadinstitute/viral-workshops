@@ -46,6 +46,7 @@ organism, what we did to populate these workspaces was:
 [Dockstore collection](https://dockstore.org/organizations/BroadInstitute/collections/pgs):
 `fetch_sra_to_bam`, `fetch_annotations`, `align_and_plot`, `assemble_refbased`.
 2. Created a Terra table called `ebov` with the four SRA accessions:
+
 | entity:ebov_id | sra_accession | biosample_accession |
 | --- | --- | --- |
 | G5723.1 | SRR1972917 | SAMN03254208 |

@@ -81,6 +81,7 @@ Make sure to set the following:
 - In the inputs table, we will need to populate the following required inputs:
   - `align.reads_unmapped_bam` (required) should be set to `this.reads_ubam`
   - `align.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
+- Click the SAVE btuton after you've set all the inputs.
 
 The resulting workflow launch page should look like this when you are ready:
 

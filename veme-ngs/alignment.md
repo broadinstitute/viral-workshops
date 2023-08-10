@@ -17,7 +17,7 @@ This exercise focuses on data from four samples (SRR1972917, SRR1972918, SRR1972
 of sequencing quality (SRR1972920 is relatively poor coverage with much of the genome uncovered, SRR1972918 is very deeply
 covered). Each is 101bp paired end Illumina data sequenced from libraries generated on patient blood samples via metagenomic
 RNA-seq laboratory approaches. All patients were sampled in 2014 from Sierra Leone, and all genomes belong to the SL3
-clade of the Makona variant of Zaire ebolavirus. This exercise will align utilize the *de facto* standard Makona C15 reference
+clade of the Makona variant of Zaire ebolavirus. This exercise will utilize the *de facto* standard Makona C15 reference
 genome (KJ660346.2, March 2014, Guinea) for alignments and variant calling.
 
 ## Workflows

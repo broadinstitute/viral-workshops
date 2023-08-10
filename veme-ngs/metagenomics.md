@@ -89,6 +89,15 @@ The resulting workflow launch page should look like this when you are ready:
 Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
 status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.
 
+### Wait for job completion
+
+You will receive an email when each of your submissions complete (along with information about whether they succeeded or failed).
+Additionally, you can also click on the JOB HISTORY tab at the top of your workspace to check on the status of your analyses in progress.
+When `classify_single` is complete, you can move on to evaluating the results. The Job History tab should look like this when the
+submissions are complete:
+
+TO DO -- add screenshot
+
 ### Evaluating results
 
 ## Other related resources

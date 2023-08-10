@@ -9,12 +9,16 @@ workflows on the Terra cloud platform on Ebola virus Illumina data.
 
 ## Data set
 
-The data comes from febrile Ebola patients in Sierra Leone, where
-patient blood was sequenced with metagenomic RNA-seq laboratory approaches.
-The data and findings are described in [Gire, et al, 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4431643/)
+The data comes from febrile Ebola patients in Sierra Leone.
+The data and findings are described in [Park, et al, 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4503805/)
 and deposited in NCBI SRA and Genbank under [PRJNA257197](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA257197).
 
-This exercise focuses on data from TBD samples: MORE INFO HERE.
+This exercise focuses on data from four samples (SRR1972917, SRR1972918, SRR1972919, SRR1972920) of a wide range
+of sequencing quality (SRR1972920 is relatively poor coverage with much of the genome uncovered, SRR1972918 is very deeply
+covered). Each is 101bp paired end Illumina data sequenced from libraries generated on patient blood samples via metagenomic
+RNA-seq laboratory approaches. All patients were sampled in 2014 from Sierra Leone, and all genomes belong to the SL3
+clade of the Makona variant of Zaire ebolavirus. This exercise will align utilize the *de facto* standard Makona C15 reference
+genome (KJ660346.2, March 2014, Guinea) for alignments and variant calling.
 
 ## Workflows
 
@@ -55,7 +59,7 @@ organism, what we did to populate these workspaces was:
 | G5735.2 | SRR1972920 | SAMN03254213 |
 3. Ran the `fetch_sra_to_bam` workflow on all rows of the `ebov` table to download reads from all four SRA accessions,
 populating more columns of the table with raw reads and basic run/sample metadata.
-4. Ran the `fetch_annotations` workflow (on file paths, not data tables) to download the reference genome (Ebola Makona C15)
+4. Ran the `fetch_annotations` workflow (on file paths, not data tables) to download the reference genome (KJ660346.2)
 and manually added a pointer to the output fasta file in the Workspace Data table as `workspace.ref_genome_ebov`.
 
 The above steps do not take very long (a few minutes here and there) but were not worth spending the time on in this workshop.
@@ -70,6 +74,17 @@ But these steps are generalizable to any scenario or organism where you want to 
 ### Run assemble_refbased
 
 ### Evaluating results
+
+#### Coverage plot outputs
+
+![coverage plot SRR1972917](coverage-SRR1972917.pdf)
+
+![coverage plot SRR1972918](coverage-SRR1972918.pdf)
+
+![coverage plot SRR1972919](coverage-SRR1972919.pdf)
+
+![coverage plot SRR1972920](coverage-SRR1972920.pdf)
+
 
 ## Other related resources
 

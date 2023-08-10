@@ -30,6 +30,13 @@ and the reference based consensus calling pipeline
 and practice execution on the [Terra](https://terra.bio/) platform, but these pipelines are known
 to work on other cloud platforms as well as on the command line using miniWDL.
 
+The `align_and_plot` workflow simply aligns reads to a reference (using minimap2, bwa, or novoalign),
+creates coverage plots, and calculates various metrics of interest (number of aligned reads, etc).
+
+The `assemble_refbased` workflow performs the same alignment to a reference, optionally trims the alignments
+for primers if provided a bed file (for sequencing protocols involving PCR amplification followed by tagmentation),
+produces plots and metrics, and calls a consensus assembly and intrahost variants.
+
 ## Terra workspace
 
 Describe what's in the tables and what workflows are pre-loaded.

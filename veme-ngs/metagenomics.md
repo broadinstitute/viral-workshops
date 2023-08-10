@@ -36,14 +36,14 @@ data set, what we did to populate these workspaces was:
 2. Copied two fastq files from the workshop data folder to the Terra workspace bucket.
 3. Created a Terra table called `metagenomics` with the four rows representing a 2x2 combination of samples and databases:
 
-| entity:metagenomics_id | fastq1 | k2_db |
+| entity:metagenomics_id | sample | fastq1 | k2_db |
 | --- | --- | --- |
-| LongBoat-PlusPF | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| Palmetto-PlusPF | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| LongBoat-MinusB | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
-| Palmetto-MinusB | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
+| LongBoat-PlusPF | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
+| Palmetto-PlusPF | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
+| LongBoat-MinusB | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
+| Palmetto-MinusB | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
 4. Ran the `fastq_to_ubam` workflow on all rows of the `metagenomics` table, with `platform_name` = "ILLUMINA",
-`library_name` = "1", `sample_name` = `this.metagenomics_id`, and `fastq_1` = `this.fastq1`.
+`library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
 5. Added the following rows to the Workspace Data table:
   - `workspace.kraken2_db_pluspf` = `gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst`
   - `workspace.kraken2_db_jhu_minusbacterial` = `gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz`
@@ -74,10 +74,20 @@ Make sure to set the following:
 - "Step 1 -- Select root entity type:" should be set to `metagenomics`.
 - "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `metagenomics` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected metagenomicss".
 - In the inputs table, we will need to populate the following required inputs:
-  - `classify_single.reads_unmapped_bam` (required) should be set to `this.reads_ubam`
-  - `classify_single.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
+  - `classify_single.kraken2_db_tgz` (required) should be set to `this.k2_db`
+  - `classify_single.krona_taxonomy_db_kraken2_tgz` (required) should be set to `workspace.krona_taxonomy_tab`
+  - `classify_single.ncbi_taxdump_tgz` (required) should be set to `workspace.ncbi_taxdump`
+  - `classify_single.reads_bams` (required) should be set to `this.unmapped_bam`
+  - `classify_single.spikein_db` (required) should be set to `workspace.spikein_db`
+  - `classify_single.trim_clip_db` (required) should be set to `workspace.trim_clip_db`
+- Click the SAVE btuton after you've set all the inputs.
 
 The resulting workflow launch page should look like this when you are ready:
+
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/e4ac4f5a-cbc3-4247-8d39-3f455cea6432">
+
+Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
+status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.
 
 ### Evaluating results
 

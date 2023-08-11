@@ -37,11 +37,12 @@ data set, what we did to populate these workspaces was:
 3. Created a Terra table called `metagenomics` with the four rows representing a 2x2 combination of samples and databases:
 
 | entity:metagenomics_id | sample | fastq1 | k2_db |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | LongBoat-PlusPF | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
 | Palmetto-PlusPF | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
 | LongBoat-MinusB | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
 | Palmetto-MinusB | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
+
 4. Ran the `fastq_to_ubam` workflow on all rows of the `metagenomics` table, with `platform_name` = "ILLUMINA",
 `library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
 5. Added the following rows to the Workspace Data table:

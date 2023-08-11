@@ -1,8 +1,6 @@
 # Viral metagenomics
 
-TO DO - examples with DENV and similar samples
-
-This is a walkthrough demonstrating metagenomic workflows on the Terra cloud platform on Illumina data from arboviral surveillance sampling.
+This is a walkthrough demonstrating metagenomic workflows on the Terra cloud platform on Illumina data from arboviral surveillance sampling. We will also run on the previously used example data from the other two exercises.
 
 ## Data set
 
@@ -123,11 +121,15 @@ Repeat the above steps for all four results to open in separate tabs.
 
 Below are what the outputs should look like for your run.
 
+#### Arboviral results
+
 Krona plots of the arboviral data, two different JHU-distributed databases (MinusB and PlusPF):
 - LongBoat: [MinusB](krona/LongBoat.kraken2-MinusB.krona.html), [PlusPF](krona/LongBoat.kraken2-PlusPF.krona.html)
 - Palmetto: [MinusB](krona/Palmetto.kraken2-MinusB.krona.html), [PlusPF](krona/Palmetto.kraken2-PlusPF.krona.html)
 
 The dominant viral hit is Piry virus in both samples, but if you expand the Viruses wedge you will see a small number of Dengue virus type 4 reads in both.
+
+#### Ebola results
 
 Krona plots from the previously used [Ebola](alignment.md) example data against the JHU PlusPF database:
 - [EBOV G5723.1](krona/SRR1972917.kraken2.krona.html)
@@ -144,12 +146,19 @@ Notice the similar trends between the number of Zaire ebolavirus reads classifie
 | G5732.1 | 5857 | 1770 |
 | G5735.2 | 420 | 434 |
 
+#### Lassa results
 
 Krona plots from the previously used [Lassa](denovo.md) example data against PlusPF and a custom Broad kraken2 database:
 - LASV_NGA_2016_0409: [PlusPF](krona/LASV_NGA_2016_0409.ll2.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0409.ll2.kraken2-Broad.krona.html)
 - LASV_NGA_2016_0668: [PlusPF](krona/LASV_NGA_2016_0668.ll4.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0668.ll4.kraken2-Broad.krona.html)
 - LASV_NGA_2016_0811: [PlusPF](krona/LASV_NGA_2016_0811.ll3.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0811.ll3.kraken2-Broad.krona.html)
 - LASV_NGA_2016_1423: [PlusPF](krona/LASV_NGA_2016_1423.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_1423.kraken2-Broad.krona.html)
+
+As you can see, there are significant differences in detection sensitivity between PlusPF and the custom Broad kraken2 databases for Lassa virus. This is not surprising, as Lassa virus (LASV) is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so they tend to perform quite poorly at Lassa virus detection. By contrast, Ebola virus is much more genetically conserved, and RefSeq-only kraken databases perform quite well at detection.
+
+To address this, the Broad Viral Genomics group occasionally builds custom databases that are intended to encapsulate PlusPF with additional viral genomes for particularly diverse taxa. The most recent build of this database was in 2020 (`gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst`).
+
+#### Other examples
 
 Other example krona plots from outside data sets:
 - Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))
@@ -174,7 +183,7 @@ The acellular reads are often the "target" data of interest (unless you are inte
 
 The `classify_single` workflow will additionally take the subset of reads classified as *acellular* (all viral and unclassified reads, typically representing a small minority of the input data) and perform *de novo* assembly via SPAdes. The resulting contigs are provided in the `contigs_fasta` output column of the `metagenomics` table. You can download these fasta files from the table view--they should not be particularly large files (in this workshop's data set, all of these files are less than 0.5MB).
 
-For highly diverse viral taxa, k-mer based read classification will have sensitivity limitations, especially when utilizing RefSeq-only databases and/or if the full diversity of the species is not captured well in INSDC at all. As a practical example, Lassa virus (LASV) is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so the options include either 1) building a custom database with more viral diversity (`gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst` is an example) or utilizing a different detection approach.
+For highly diverse viral taxa, k-mer based read classification will have sensitivity limitations, especially when utilizing RefSeq-only databases and/or if the full diversity of the species is not captured well in INSDC at all (see LASV results above). Custom kraken database builds can help, but not for more novel or uncharacterized viral taxa, which would require a different detection approach.
 
 Utilizing *de novo* contigs instead of raw reads for detection provides more statistical power per sequence for distant matches via BLAST or BLAST-like approaches. This workshop does not go into detail on how to employ these approaches, however the most common and simple approach that researchers will take as a next step for investigation is to run the contigs through [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/) against `nt` (blastn) or `nr` (blastx).
 

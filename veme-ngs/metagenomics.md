@@ -50,7 +50,7 @@ data set, what we did to populate these workspaces was:
   - `workspace.kraken2_db_jhu_minusbacterial` = `gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz`
   - `workspace.krona_taxonomy_tab` = `gs://pathogen-public-dbs/v1/krona.taxonomy-20221213.tab.zst`
   - `workspace.ncbi_taxdump` = `gs://pathogen-public-dbs/v1/taxdump-20221213.tar.gz`
-  - `workspace.spikein_db` = `gs://pathogen-public-dbs/v1/ercc_sdsi_spike-ins_20210809.fasta`
+  - `workspace.spikein_db` = `gs://pathogen-public-dbs/v1/ercc_spike-ins-20170523.fa`
   - `workspace.trim_clip_db` = `gs://pathogen-public-dbs/v0/contaminants.clip_db.fasta`
 
 The above steps do not take very long (a few minutes here and there) but were not worth spending the time on in this workshop.

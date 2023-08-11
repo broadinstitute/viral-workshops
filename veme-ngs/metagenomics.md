@@ -121,8 +121,9 @@ Krona plots from the previously used [Ebola](alignment.md) and [Lassa](denovo.md
 
 Other example krona plots from outside data sets:
 - Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))
-- Water/non-template-controls from [Broad Institute](krona/Broad_NTC.krona-report.html), [Universite Cheikh Anta Diop](UCAD_W1.krona-report.html)
-
+- Water/non-template-controls from [Broad Institute](krona/Broad_NTC.krona-report.html), [Universite Cheikh Anta Diop](UCAD_W1.krona-report.html) -- NTCs should be run in every metagenomic sequencing batch and closely examined
+- Non-metagenomic examples of krona as a generalized heirarchical composition visualization tool: [nutrition info](krona/Example%20-%20Granola.html) [file system](krona/Example%20-%20File%20System.html)
+- Other LASV patient samples [well detected](krona/A4.lA4.krona-report.html) (but note how many reads LCA to the family level), [poorly detected](krona/LASV-B2.lB2.krona-report.html) (this had a lot of LASV reads but was genetically distant from the kraken database, note the size of the "no hits")
 
 ### Subsetted read sets
 

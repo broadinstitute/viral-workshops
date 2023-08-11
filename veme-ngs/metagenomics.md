@@ -45,6 +45,7 @@ data set, what we did to populate these workspaces was:
 `library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
 5. Added the following rows to the Workspace Data table:
   - `workspace.kraken2_db_pluspf` = `gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst`
+  - `workspace.kraken2_db_broad_custom` = `gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst`
   - `workspace.kraken2_db_jhu_minusbacterial` = `gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz`
   - `workspace.krona_taxonomy_tab` = `gs://pathogen-public-dbs/v1/krona.taxonomy-20221213.tab.zst`
   - `workspace.ncbi_taxdump` = `gs://pathogen-public-dbs/v1/taxdump-20221213.tar.gz`
@@ -154,9 +155,20 @@ Krona plots from the previously used [Lassa](denovo.md) example data against Plu
 - LASV_NGA_2016_0811: [PlusPF](krona/LASV_NGA_2016_0811.ll3.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0811.ll3.kraken2-Broad.krona.html)
 - LASV_NGA_2016_1423: [PlusPF](krona/LASV_NGA_2016_1423.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_1423.kraken2-Broad.krona.html)
 
-As you can see, there are significant differences in detection sensitivity between PlusPF and the custom Broad kraken2 databases for Lassa virus. This is not surprising, as Lassa virus (LASV) is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so they tend to perform quite poorly at Lassa virus detection. By contrast, Ebola virus is much more genetically conserved, and RefSeq-only kraken databases perform quite well at detection.
+Here are the number of Lassa virus reads detected by each kraken2 database:
 
-To address this, the Broad Viral Genomics group occasionally builds custom databases that are intended to encapsulate PlusPF with additional viral genomes for particularly diverse taxa. The most recent build of this database was in 2020 (`gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst`).
+| sample | PlusPF (arenaviridae) | Broad custom (Lassa mammarenavirus) |
+| --- | --- | --- |
+| LASV_NGA_2016_0409 | 3021 | 9022 |
+| LASV_NGA_2016_0668 | 400 | 12204 |
+| LASV_NGA_2016_0811 | 91 | 1332 |
+| LASV_NGA_2016_1423 | 4310 | 689845 |
+
+As you can see, there are significant differences in detection sensitivity between PlusPF and the custom Broad kraken2 databases for Lassa virus. This is not surprising, as Lassa virus is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so they tend to perform quite poorly at Lassa virus detection.
+
+By contrast, Ebola virus is much more genetically conserved, and RefSeq-only kraken databases perform quite well at detection. Dengue virus, while diverse, has one RefSeq genome for each of the four types, meaning that RefSeq captures DENV diversity quite well.
+
+To address the sensitivity issues with RefSeq, the Broad Viral Genomics group occasionally builds custom databases that are intended to encapsulate PlusPF with additional viral genomes for particularly diverse taxa. The most recent build of this database was in 2020 (`gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst`).
 
 #### Other examples
 
@@ -164,7 +176,6 @@ Other example krona plots from outside data sets:
 - Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))
 - Water/non-template-controls from [Broad Institute](krona/Broad_NTC.krona-report.html), [Universite Cheikh Anta Diop](krona/UCAD_W1.krona-report.html) -- NTCs should be run in every metagenomic sequencing batch and closely examined
 - Non-metagenomic examples of krona as a generalized heirarchical composition visualization tool: [nutritional composition](krona/Example%20-%20Granola.html), [MacOS user directory](krona/Example%20-%20File%20System.html)
-- Other LASV patient samples [well detected](krona/A4.lA4.krona-report.html) (but note how many reads LCA to the family level), [poorly detected](krona/LASV-B2.lB2.krona-report.html) (this had a lot of LASV reads but was genetically distant from the kraken database, note the size of the "no hits")
 
 ### Subsetted read sets
 
@@ -189,4 +200,4 @@ Utilizing *de novo* contigs instead of raw reads for detection provides more sta
 
 ## Other related resources
 
-TO DO: links to Carla's stuff
+TO DO

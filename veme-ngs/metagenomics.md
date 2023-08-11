@@ -57,6 +57,8 @@ The above steps do not take very long (a few minutes here and there) but were no
 But these steps are generalizable to any scenario or organism where you want to run your own fastq reads against our
 kraken2-based classification pipeline.
 
+Off-the-shelf kraken2 databases are distributed by John's Hopkins University (the authors of Kraken) at [this site](https://benlangmead.github.io/aws-indexes/k2).
+
 ## Walkthrough
 
 ### Clone the workspace
@@ -98,7 +100,7 @@ You will receive an email when each of your submissions complete (along with inf
 
 TO DO -- re-do this screenshot for four runs instead of three (oops)
 
-Depending on some predictable and some unpredictable factors, the `classify_single` jobs should complete within about 30 minutes for the MinusB kraken2 databases and about 60 minutes for the PlusPF databases, but may take longer. No user intervention is required while you await results, and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether you launched jobs on 1 or 1,000 samples. Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.
+Depending on some predictable and some unpredictable factors, the `classify_single` jobs should complete within about 30 minutes for the minikraken kraken2 databases and about 60 minutes for the PlusPF databases, but may take longer. No user intervention is required while you await results, and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether you launched jobs on 1 or 1,000 samples. Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.
 
 About 1 day after job completion, total cloud compute costs are displayed on this page (in USD). Prior to that, the run costs are listed as "N/A". Kraken2 analysis costs and runtime tend to scale more with the size of the kraken2 database than the size of the input sequencing data (unless it is an extremely large volume of sequencing data).
 
@@ -108,25 +110,46 @@ You can examine the outputs and results of each step of each job via the Job His
 
 ### Kraken and Krona outputs
 
-TO DO: how to dive into these, the text summary file and the krona html plot
+There are two key outputs for each sample that you might inspect for each sample in the `metagenomics` table: there is a text-based summary file produced by kraken, provided in the `kraken2_summary_report` column, and there is the interactive krona plot rendering, provided in `kraken2_krona_plot`.
 
-Krona plots of the arboviral data, two different databases:
-- [LongBoat reads, MinusB database](krona/LongBoat.kraken2-MinusB.krona.html)
-- [LongBoat reads, PlusPF database](krona/LongBoat.kraken2-PlusPF.krona.html)
-- [Palmetto reads, MinusB database](krona/Palmetto.kraken2-MinusB.krona.html)
-- [Palmetto reads, PlusPF database](krona/Palmetto.kraken2-PlusPF.krona.html)
+You can click on the live links for any file element in the Terra data table and download them, or preview them in your browser. As an example, click on the `LongBoat.kraken2.krona.html` live link in the `kraken2_krona_plot` column of the `LongBoat-PlusPF` row of the `metagenomics` data table. This will open a "File Details" box where you can access this file three different ways:
+1. Click the blue DOWNLOAD button to download it to your computer. You can then open the downloaded file in a browser to view.
+2. If you have the gcloud API installed in a command line environment, copy and paste the `gsutil cp` command to your terminal and it will download the file that way.
+3. Click on "View this file in the Google Cloud Storage Browser".
+  a. This opens not the file, but its parent directory in a web browser for Google Cloud buckets. This directory will contain many other files, but look for the link to the file you were looking for originally (LongBoat.kraken2.krona.html), and click that.
+  b. This leads to an "Object details" page with information and several links for this particular file. Click the "Authenticated URL" link. This will open the krona plot in your web browser.
 
-Krona plots from the previously used [Ebola](alignment.md) and [Lassa](denovo.md) example data against the JHU PlusPF database:
+Repeat the above steps for all four results to open in separate tabs.
+
+Below are what the outputs should look like for your run.
+
+Krona plots of the arboviral data, two different JHU-distributed databases (MinusB and PlusPF):
+- LongBoat: [MinusB](krona/LongBoat.kraken2-MinusB.krona.html), [PlusPF](krona/LongBoat.kraken2-PlusPF.krona.html)
+- Palmetto: [MinusB](krona/Palmetto.kraken2-MinusB.krona.html), [PlusPF](krona/Palmetto.kraken2-PlusPF.krona.html)
+
+The dominant viral hit is Piry virus in both samples, but if you expand the Viruses wedge you will see a small number of Dengue virus type 4 reads in both.
+
+Krona plots from the previously used [Ebola](alignment.md) example data against the JHU PlusPF database:
 - [EBOV G5723.1](krona/SRR1972917.kraken2.krona.html)
 - [EBOV G5731.1](krona/SRR1972918.kraken2.krona.html)
 - [EBOV G5732.1](krona/SRR1972919.kraken2.krona.html)
 - [EBOV G5735.2](krona/SRR1972920.kraken2.krona.html)
-- [LASV_NGA_2016_0409](krona/LASV_NGA_2016_0409.ll2.kraken2.krona.html)
-- [LASV_NGA_2016_0668](krona/LASV_NGA_2016_0668.ll4.kraken2.krona.html)
-- [LASV_NGA_2016_0759](TBD)
-- [LASV_NGA_2016_0811](krona/LASV_NGA_2016_0811.ll3.kraken2.krona.html)
-- [LASV_NGA_2016_1423](krona/LASV_NGA_2016_1423.kraken2.krona.html)
-- [LASV_NGA_2016_1547](TBD)
+
+Notice the similar trends between the number of Zaire ebolavirus reads classified by kraken2 and the number of `reads_aligned` in the `ebov` table from the `assemble_refbased` workflow in the [Ebola exercise](alignment.md). There will be differences due to sensitivity of methodology (kraken2 vs minimap), as well as read deduplication (assemble_refbased counts are deduplicated, metagenomic hits are not) and other filters (assemble_refbased filters to properly paired aligned reads).
+
+| sample | kraken2 EBOV hits | minimap2 reads aligned |
+| --- | --- | --- |
+| G5723.1 | 14043 | 8240 |
+| G5731.1 | 200354 | 90008 |
+| G5732.1 | 5857 | 1770 |
+| G5735.2 | 420 | 434 |
+
+
+Krona plots from the previously used [Lassa](denovo.md) example data against PlusPF and a custom Broad kraken2 database:
+- LASV_NGA_2016_0409: [PlusPF](krona/LASV_NGA_2016_0409.ll2.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0409.ll2.kraken2-Broad.krona.html)
+- LASV_NGA_2016_0668: [PlusPF](krona/LASV_NGA_2016_0668.ll4.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0668.ll4.kraken2-Broad.krona.html)
+- LASV_NGA_2016_0811: [PlusPF](krona/LASV_NGA_2016_0811.ll3.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0811.ll3.kraken2-Broad.krona.html)
+- LASV_NGA_2016_1423: [PlusPF](krona/LASV_NGA_2016_1423.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_1423.kraken2-Broad.krona.html)
 
 Other example krona plots from outside data sets:
 - Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))

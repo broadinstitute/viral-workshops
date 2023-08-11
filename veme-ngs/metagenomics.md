@@ -81,7 +81,7 @@ Make sure to set the following:
   - `classify_single.reads_bams` (required) should be set to `this.unmapped_bam`
   - `classify_single.spikein_db` (required) should be set to `workspace.spikein_db`
   - `classify_single.trim_clip_db` (required) should be set to `workspace.trim_clip_db`
-- Click the SAVE btuton after you've set all the inputs.
+- Click the SAVE button after you've set all the inputs.
 
 The resulting workflow launch page should look like this when you are ready:
 

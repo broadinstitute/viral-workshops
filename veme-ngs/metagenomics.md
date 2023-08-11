@@ -111,10 +111,10 @@ You can examine the outputs and results of each step of each job via the Job His
 TO DO: how to dive into these, the text summary file and the krona html plot
 
 Some krona plots:
-- [LongBoat reads, MinusB database](LongBoat.kraken2-MinusB.krona.html)
-- [LongBoat reads, PlusPF database](LongBoat.kraken2-PlusPF.krona.html)
-- [Palmetto reads, MinusB database](Palmetto.kraken2-MinusB.krona.html)
-- [Palmetto reads, PlusPF database](Palmetto.kraken2-PlusPF.krona.html)
+- [LongBoat reads, MinusB database](krona/LongBoat.kraken2-MinusB.krona.html)
+- [LongBoat reads, PlusPF database](krona/LongBoat.kraken2-PlusPF.krona.html)
+- [Palmetto reads, MinusB database](krona/Palmetto.kraken2-MinusB.krona.html)
+- [Palmetto reads, PlusPF database](krona/Palmetto.kraken2-PlusPF.krona.html)
 
 ### Subsetted read sets
 

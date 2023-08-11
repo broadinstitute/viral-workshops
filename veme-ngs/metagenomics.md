@@ -100,7 +100,7 @@ TO DO -- re-do this screenshot for four runs instead of three (oops)
 
 Depending on some predictable and some unpredictable factors, the `classify_single` jobs should complete within about 30 minutes for the MinusB kraken2 databases and about 60 minutes for the PlusPF databases, but may take longer. No user intervention is required while you await results, and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether you launched jobs on 1 or 1,000 samples. Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.
 
-Total cloud compute costs are also displayed on this page (in USD). Kraken2 analysis costs and runtime tend to scale more with the size of the kraken2 database than the size of the input sequencing data (unless it is an extremely large volume of sequencing data).
+About 1 day after job completion, total cloud compute costs are displayed on this page (in USD). Prior to that, the run costs are listed as "N/A". Kraken2 analysis costs and runtime tend to scale more with the size of the kraken2 database than the size of the input sequencing data (unless it is an extremely large volume of sequencing data).
 
 ### Evaluating results
 
@@ -109,6 +109,12 @@ You can examine the outputs and results of each step of each job via the Job His
 ### Kraken and Krona outputs
 
 TO DO: how to dive into these, the text summary file and the krona html plot
+
+Some krona plots:
+- [LongBoat reads, MinusB database](LongBoat.kraken2-MinusB.krona.html)
+- [LongBoat reads, PlusPF database](LongBoat.kraken2-PlusPF.krona.html)
+- [Palmetto reads, MinusB database](Palmetto.kraken2-MinusB.krona.html)
+- [Palmetto reads, PlusPF database](Palmetto.kraken2-PlusPF.krona.html)
 
 ### Subsetted read sets
 

@@ -108,8 +108,8 @@ Make sure to set the following:
 
 - The `assemble_denovo` "Version:" should be already set to `master`, but make sure it is set as such.
 - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
-- "Step 1 -- Select root entity type:" should be set to `de_novo_assembly`.
-- "Step 2 -- **SELECT DATA**" -- click on this button and a data selector box will pop up. Check box all six rows of the `de_novo_assembly` table so that we launch multiple assembly jobs at the same time, one for each sample in the table. After selecting the rows, click the **OK** button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "6 selected metagenomics".
+- "Step 1 — Select root entity type:" should be set to `de_novo_assembly`.
+- "Step 2 — **SELECT DATA**" — click on this button and a data selector box will pop up. Check box all six rows of the `de_novo_assembly` table so that we launch multiple assembly jobs at the same time, one for each sample in the table. After selecting the rows, click the **OK** button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "6 selected de_novo_assemblys" [sic].
 - In the inputs table on the lower part of the page, the following required inputs will need to be set:
   - `assemble_denovo.reads_unmapped_bams` (required) should be set to `this.cleaned_bam`
   - `assemble_denovo.reference_genome_fasta` (required) should be set to `workspace.lasv_reference_scaffold_genomes`

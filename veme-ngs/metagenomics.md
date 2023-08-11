@@ -91,13 +91,45 @@ status page for your newly launched workflow, showing four rows in the bottom ta
 
 ### Wait for job completion
 
-You will receive an email when each of your submissions complete (along with information about whether they succeeded or failed).
-Additionally, you can also click on the JOB HISTORY tab at the top of your workspace to check on the status of your analyses in progress.
-When `classify_single` is complete, you can move on to evaluating the results. The Job History tab should look like this when the
-submissions are complete:
+You will receive an email when each of your submissions complete (along with information about whether they succeeded or failed). Additionally, you can also click on the JOB HISTORY tab at the top of your workspace to check on the status of your analyses in progress. When `classify_single` is complete, you can move on to evaluating the results. The job submission page for your submission under the Job History tab should look like this when the submissions are complete:
 
-TO DO -- add screenshot
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/42ad9346-dd59-463a-bdf1-b60677ee03e0">
+
+TO DO -- re-do this screenshot for four runs instead of three (oops)
+
+Depending on some predictable and some unpredictable factors, the `classify_single` jobs should complete within about 30 minutes for the MinusB kraken2 databases and about 60 minutes for the PlusPF databases, but may take longer. No user intervention is required while you await results, and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether you launched jobs on 1 or 1,000 samples. Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.
+
+Total cloud compute costs are also displayed on this page (in USD). Kraken2 analysis costs and runtime tend to scale more with the size of the kraken2 database than the size of the input sequencing data (unless it is an extremely large volume of sequencing data).
 
 ### Evaluating results
 
+You can examine the outputs and results of each step of each job via the Job History page, however, for large submissions, it is easier to view the saved top level outputs in the data table--in this case, the `metagenomics` table. The `metagenomics` table now has a number of additional output columns, including krona plots for viewing metagenomics results, text summary files, subsetted/filtered read sets, fastqc plots on subsetted reads, and viral *de novo* contigs.
+
+### Kraken and Krona outputs
+
+TO DO: how to dive into these, the text summary file and the krona html plot
+
+### Subsetted read sets
+
+Among other outputs, kraken2 will classify every read in your input data--that is, it will assign an NCBI taxid to every read you gave it. Our pipeline additionally uses this output to create two subsetted read sets of your input data:
+
+- Dehosted reads: all reads from input that did *not* classify as `Vertebrata` or lower. This includes all non-vertebrate reads plus unclassified reads and those that classified at a higher taxonomic rank than the subphylum level. Reads are contained in the `cleaned_reads_unaligned_bam` output, with the numeric count provided in `read_counts_depleted` and the FastQC plot provided in `cleaned_fastqc`.
+- Deduplicated acellular reads: all reads from input that did *not* classify as `Vertebrata`, `other sequences` (synthetic constructs), or `Bacteria` and then PCR deduplicated via an alignment-free approach. Reads are contained in the `deduplicated_reads_unaligned` output, with the numeric count provided in `read_counts_dedup`.
+
+The dehosted reads are typically the data set you will submit to SRA/ENA for public data release and these can be used for downstream analyses whether [alignment-based](alignment.md) or [assembly-based](denovo.md) (in the latter case, you can skip any dehosting steps to save time and cost, since it has already been done here).
+
+A FastQC plot is generated on this subset as well, because we have found over the years that working with metagenomic reads from direct patient specimens sometimes exhibits different RNA degradation/quality between host nucleic acids and RNA viral nucleic acids within the same sample--BioAnalyzer/TapeStation outputs and FastQC plots on the total raw data may obscure this difference if it exists. Our team does not always proactively look at these plots unless problems are encountered, but they are easy to generate and helpful if needed.
+
+The acellular reads are often the "target" data of interest (unless you are interested in the bacteria) and are often a very small fraction of the input data. These subsetted BAM files are often small enough to download and work with in local analysis or visual tools, and would be the appropriate input SPAdes and other focused analysis steps.
+
+### Viral contigs
+
+The `classify_single` workflow will additionally take the subset of reads classified as *acellular* (all viral and unclassified reads, typically representing a small minority of the input data) and perform *de novo* assembly via SPAdes. The resulting contigs are provided in the `contigs_fasta` output column of the `metagenomics` table. You can download these fasta files from the table view--they should not be particularly large files (in this workshop's data set, all of these files are less than 0.5MB).
+
+For highly diverse viral taxa, k-mer based read classification will have sensitivity limitations, especially when utilizing RefSeq-only databases and/or if the full diversity of the species is not captured well in INSDC at all. As a practical example, Lassa virus (LASV) is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so the options include either 1) building a custom database with more viral diversity (`gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst` is an example) or utilizing a different detection approach.
+
+Utilizing *de novo* contigs instead of raw reads for detection provides more statistical power per sequence for distant matches via BLAST or BLAST-like approaches. This workshop does not go into detail on how to employ these approaches, however the most common and simple approach that researchers will take as a next step for investigation is to run the contigs through [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/) against `nt` (blastn) or `nr` (blastx).
+
 ## Other related resources
+
+TO DO: links to Carla's stuff

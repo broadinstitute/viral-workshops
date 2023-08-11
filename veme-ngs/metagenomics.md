@@ -110,11 +110,19 @@ You can examine the outputs and results of each step of each job via the Job His
 
 TO DO: how to dive into these, the text summary file and the krona html plot
 
-Some krona plots:
+Krona plots of the arboviral data, two different databases:
 - [LongBoat reads, MinusB database](krona/LongBoat.kraken2-MinusB.krona.html)
 - [LongBoat reads, PlusPF database](krona/LongBoat.kraken2-PlusPF.krona.html)
 - [Palmetto reads, MinusB database](krona/Palmetto.kraken2-MinusB.krona.html)
 - [Palmetto reads, PlusPF database](krona/Palmetto.kraken2-PlusPF.krona.html)
+
+Krona plots from the previously used [Ebola](alignment.md) and [Lassa](denovo.md) example data against the JHU PlusPF database:
+- TO DO, add plots here
+
+Other example krona plots from outside data sets:
+- Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))
+- Water/non-template-controls from [Broad Institute](krona/Broad_NTC.krona-report.html), [Universite Cheikh Anta Diop](UCAD_W1.krona-report.html)
+
 
 ### Subsetted read sets
 

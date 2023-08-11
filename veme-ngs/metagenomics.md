@@ -117,7 +117,16 @@ Krona plots of the arboviral data, two different databases:
 - [Palmetto reads, PlusPF database](krona/Palmetto.kraken2-PlusPF.krona.html)
 
 Krona plots from the previously used [Ebola](alignment.md) and [Lassa](denovo.md) example data against the JHU PlusPF database:
-- TO DO, add plots here
+- [EBOV G5723.1](krona/SRR1972917.kraken2.krona.html)
+- [EBOV G5731.1](krona/SRR1972918.kraken2.krona.html)
+- [EBOV G5732.1](krona/SRR1972919.kraken2.krona.html)
+- [EBOV G5735.2](krona/SRR1972920.kraken2.krona.html)
+- [LASV_NGA_2016_0409](krona/LASV_NGA_2016_0409.ll2.kraken2.krona.html)
+- [LASV_NGA_2016_0668](krona/LASV_NGA_2016_0668.ll4.kraken2.krona.html)
+- [LASV_NGA_2016_0759](TBD)
+- [LASV_NGA_2016_0811](krona/LASV_NGA_2016_0811.ll3.kraken2.krona.html)
+- [LASV_NGA_2016_1423](krona/LASV_NGA_2016_1423.kraken2.krona.html)
+- [LASV_NGA_2016_1547](TBD)
 
 Other example krona plots from outside data sets:
 - Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))

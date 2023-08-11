@@ -164,7 +164,7 @@ Here are the number of Lassa virus reads detected by each kraken2 database:
 | LASV_NGA_2016_0811 | 91 | 1332 |
 | LASV_NGA_2016_1423 | 4310 | 689845 |
 
-As you can see, there are significant differences in detection sensitivity between PlusPF and the custom Broad kraken2 databases for Lassa virus. This is not surprising, as Lassa virus is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so they tend to perform quite poorly at Lassa virus detection.
+As you can see, there are significant differences in detection sensitivity between PlusPF and the custom Broad kraken2 databases for Lassa virus, as well as specificity (the Broad database classifies LASV to the species level, the PlusPF generally does not). This is not surprising, as Lassa virus is about 70% conserved at the nucleotide level across the species--with an average of 1 SNP every 3bp, no k-mer-based method will match these unless a close enough genome is represented in the database. Default JHU kraken(2) databases include only one representative genome per viral species (the RefSeq genome), so they tend to perform quite poorly at Lassa virus detection.
 
 By contrast, Ebola virus is much more genetically conserved, and RefSeq-only kraken databases perform quite well at detection. Dengue virus, while diverse, has one RefSeq genome for each of the four types, meaning that RefSeq captures DENV diversity quite well.
 

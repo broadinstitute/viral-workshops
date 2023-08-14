@@ -18,8 +18,8 @@ and with metadata listed under NCBI Bioproject [PRJNA436552](https://www.ncbi.nl
 
 ## Assembly pipeline
 
-This exercise focuses on data from six samples: one producing high quality / near complete
-assemblies, three producing partial medium-quality assemblies, and two producing poor-quality / unusable
+This exercise focuses on data from six samples: two producing high quality / near complete
+assemblies, two producing partial medium-quality assemblies, and two producing poor-quality / unusable
 assemblies. 
 
 The exercise will use the Broad Viral Genomics group's viral *de novo* asssembly
@@ -48,7 +48,7 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 1. Imported the following workflows from the Broad Institute Viral Genomics
 [Dockstore collection](https://dockstore.org/organizations/BroadInstitute/collections/pgs):
-`deplete_only`, `assemble_denovo`.
+`deplete_only`, `downsample`, and `assemble_denovo`.
 2. Copied six `.bam` files from the workshop data folder to the Terra workspace bucket `raw_read_data/` subdirectory:
   - `LASV_NGA_2016_0409.ll2.cleaned.bam`
   - `LASV_NGA_2016_0668.ll4.cleaned.bam`
@@ -75,10 +75,16 @@ If you are starting from scratch on a new data set, what we did to populate thes
   - `deplete_taxa.raw_reads_unmapped_bam` = `this.raw_reads_unaligned_bam`
   - `deplete_taxa.blastDbs` = `workspace.blastDbs`
   - `deplete_taxa.bwaDbs` = `workspace.bwaDbs`
-6. Added the following rows to the Workspace Data table:
+6. Subsampled the reads for `LASV_NGA_2016_0759` to reduce the total data size, by running the `downsample` workflow, with:
+  - `downsample_bams.reads_bam` = `this.cleaned_bam`
+  - `downsample_bams.readCount` = `5000000`
+  - `downsample_bams.deduplicateAfter` = `true`
+  - (output) `downsample.downsampled_bam` = `this.cleaned_bam`
+8. Added the following rows to the Workspace Data table:
   - `workspace.blastDbs` = `gs://pathogen-public-dbs/v0/GRCh37.68_ncRNA.fasta.zst, gs://pathogen-public-dbs/v0/hybsel_probe_adapters.fasta` (string list)
   - `workspace.bwaDbs` = `gs://pathogen-public-dbs/v0/hg19.bwa_idx.tar.zst`
   - `workspace.lasv_reference_scaffold_genomes` = `gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/references/LASV/ref-lasv-BNI_Nig08_A19.fasta, gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/references/LASV/ref-lasv-ISTH2376.fasta, gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/references/LASV/ref-lasv-KGH_G502.fasta` (string list)
+
 
 ## Walkthrough
 

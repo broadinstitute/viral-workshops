@@ -1,3 +1,9 @@
+# Contents
+{:.no_toc}
+
+1. Table of Contents
+{:toc}
+
 # Viral metagenomics
 
 This is a walkthrough demonstrating metagenomic workflows on the Terra cloud platform on Illumina data from arboviral surveillance sampling. We will also run on the previously used example data from the other two exercises.
@@ -21,7 +27,7 @@ Briefly, the `classify_single` pipeline consists of the following steps:
 3. Alignment-free duplicate removal, adapter trimming, and *de novo* assembly (via SPAdes) of acellular reads
 4. Alignment based counting of reads matching ERCC spike-ins
 
-Note: this does not yet incorporate bracken for more accurate abundance estimation, but the principles for interpretation of results are the same (aside from any quantitative inferences).
+Note: this pipeline does not yet incorporate bracken for more accurate abundance estimation, but the principles for interpretation of results are the same (aside from any quantitative inferences).
 
 ## Terra workspace
 

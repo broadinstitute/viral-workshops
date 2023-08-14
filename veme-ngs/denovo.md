@@ -18,8 +18,8 @@ and with metadata listed under NCBI Bioproject [PRJNA436552](https://www.ncbi.nl
 
 ## Assembly pipeline
 
-This exercise focuses on data from six samples: one producing high quality / near complete
-assemblies, three producing partial medium-quality assemblies, and two producing poor-quality / unusable
+This exercise focuses on data from six samples: two producing high quality / near complete
+assemblies, two producing partial medium-quality assemblies, and two producing poor-quality / unusable
 assemblies. 
 
 The exercise will use the Broad Viral Genomics group's viral *de novo* asssembly
@@ -43,13 +43,13 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 
 ## Terra workspace
 
-For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra) in advance and loaded in the sequencing read data and required reference databases. 
+For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023) in advance and loaded in the sequencing read data and required reference databases. 
 If you are starting from scratch on a new data set, what we did to populate these workspaces was:
 
 1. Imported the following workflows from the Broad Institute Viral Genomics
 [Dockstore collection](https://dockstore.org/organizations/BroadInstitute/collections/pgs):
-`deplete_only`, `assemble_denovo`.
-2. Copied six `.bam` files from the workshop data folder to the Terra workspace bucket `raw_read_data/` subdirectory:
+`deplete_only`, `downsample`, and `assemble_denovo`.
+2. Copied six `.bam` files from the workshop data folder to the Terra workspace bucket `de_novo_assembly/raw_read_data/` subdirectory:
   - `LASV_NGA_2016_0409.ll2.cleaned.bam`
   - `LASV_NGA_2016_0668.ll4.cleaned.bam`
   - `LASV_NGA_2016_0759.ll1.cleaned.bam`
@@ -64,18 +64,23 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 | **entity:de_novo_assembly_id** | **raw_reads_unaligned_bam** |
 |---|---|
-| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
-| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
-| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
-| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
-| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1423.bam |
-| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
+| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
+| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
+| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
+| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
+| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_1423.bam |
+| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
 
 5. Ran the `deplete_only` workflow on all rows of the `de_novo_assembly` table, with:
   - `deplete_taxa.raw_reads_unmapped_bam` = `this.raw_reads_unaligned_bam`
   - `deplete_taxa.blastDbs` = `workspace.blastDbs`
   - `deplete_taxa.bwaDbs` = `workspace.bwaDbs`
-6. Added the following rows to the Workspace Data table:
+6. Subsampled the reads for `LASV_NGA_2016_0759` to reduce the total data size, by running the `downsample` workflow, with:
+  - `downsample_bams.reads_bam` = `this.cleaned_bam`
+  - `downsample_bams.readCount` = `5000000`
+  - `downsample_bams.deduplicateAfter` = `true`
+  - (output) `downsample.downsampled_bam` = `this.cleaned_bam`
+8. Added the following rows to the Workspace Data table:
   - `workspace.blastDbs` = `gs://pathogen-public-dbs/v0/GRCh37.68_ncRNA.fasta.zst, gs://pathogen-public-dbs/v0/hybsel_probe_adapters.fasta` (string list)
   - `workspace.bwaDbs` = `gs://pathogen-public-dbs/v0/hg19.bwa_idx.tar.zst`
   - `workspace.lasv_reference_scaffold_genomes` = `gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-BNI_Nig08_A19.fasta, gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-ISTH2376.fasta, gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-KGH_G502.fasta` (string list)
@@ -87,13 +92,13 @@ If you are starting from scratch on a new data set, what we did to populate thes
 ### Clone the workspace
 
 A workspace for these exercises has been created in advance, and contains the required input data organized into distinct tables.
-The tables can be explored from the "[**Data**](https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra/data)"
+The tables can be explored from the "[**Data**](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023/data)"
 tab.
 
 Before beginning the exercise, the pre-made workspace will be copied to a "clone" that will be yours to use for these exercises. 
 Using a cloned workspace will ensure that the compute jobs and their outputs you see are yours alone.
 
-- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra)
+- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
 - Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
 - Select **Clone**
 - In the modal dialog box that appears: 
@@ -112,6 +117,9 @@ Make sure to set the following:
 - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
 - "Step 1 — Select root entity type:" should be set to `de_novo_assembly`.
 - "Step 2 — **SELECT DATA**" — click on this button and a data selector box will pop up. Check box all six rows of the `de_novo_assembly` table so that we launch multiple assembly jobs at the same time, one for each sample in the table. After selecting the rows, click the **OK** button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "6 selected de_novo_assemblys" [sic].
+
+<img width="80%" alt="input data selection" src="https://github.com/broadinstitute/viral-workshops/assets/53064/5743430f-46d9-4844-83bd-38ee8b0a480f">
+
 - In the inputs table on the lower part of the page, the following required inputs will need to be set:
   - `assemble_denovo.reads_unmapped_bams` (required) should be set to `this.cleaned_bam`
   - `assemble_denovo.reference_genome_fasta` (required) should be set to `workspace.lasv_reference_scaffold_genomes`
@@ -129,15 +137,20 @@ Another modal dialog box will appear with an input box to enter a (human-readabl
 This is a helpful field to describe distinct or distinguishing features of the jobs being submitted, 
 so jobs with various parameters or inputs subsets can be quickly located among other jobs that have been run.
 
+<img width="461" max-width="80%" alt="workflow launch description modal" src="https://github.com/broadinstitute/viral-workshops/assets/53064/75070f7e-83ed-463f-b316-0a048f662acc">
+
 Enter a description of your choosing, 
-such as "de novo assembly of LASV genomes from 4 samples, with min_unambig passing threshold set to 0.8"
+such as "de novo assembly of LASV genomes from six samples, with min_unambig passing threshold set to 0.8"
 
 Click the **LAUNCH** button to start the compute jobs.
 
 This will take you to a job submission status page for your newly launched workflow, 
 showing six rows in the bottom table corresponding to the six jobs that have been launched.
 
+<img width="80%" alt="Screenshot 2023-08-14 at 12 44 56" src="https://github.com/broadinstitute/viral-workshops/assets/53064/b6557013-79d2-448b-b99c-2bf4dd698432">
+
 No connectivity or power is required at the client side during this time; the jobs will continue to run on Terra if you navigate away from the page or shutdown your computer.
+
 The total runtime (real-world clock time) should be somewhat independent of whether you launched jobs on 1 or 1,000 samples, as the workflows are executed in parallel on separate cloud compute instances.
 
 Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.
@@ -163,7 +176,11 @@ it is easier to view the saved top level outputs in the data table—in this cas
 After the `assemble_denovo` jobs have completed, the `de_novo_assembly` table should have a number of additional output columns,
 including assembly coverage plots for viewing read depth across the genome, `.fasta` sequence files, various intermediate output files, and metrics such as `assembly_length_unambiguous` and `mean_coverage`.
 
-The columns shown or hidden for a data table can be configured by clicking the (gear) **SETTINGS** button above the table and selecting columns as desired.
+The columns shown or hidden for a data table can be configured by clicking the<img width="26" display="inline" style="top:0.4em;position:relative;" alt="column settings gear icon" src="https://github.com/broadinstitute/viral-workshops/assets/53064/d5123eb3-ccd3-4a9d-8a2a-4ef62ae9bd65">**SETTINGS** button above the table and selecting columns as desired.
+
+<img width="761" alt="column settings button" src="https://github.com/broadinstitute/viral-workshops/assets/53064/6bbb1bc7-17e5-447e-bd12-184a67f16504">
+
+<img width="822" alt="displayed column selector" src="https://github.com/broadinstitute/viral-workshops/assets/53064/355f570f-a9bf-4290-b09d-bbbb91ccbef2">
 
 ## Other related resources
 

@@ -172,7 +172,11 @@ it is easier to view the saved top level outputs in the data table—in this cas
 After the `assemble_denovo` jobs have completed, the `de_novo_assembly` table should have a number of additional output columns,
 including assembly coverage plots for viewing read depth across the genome, `.fasta` sequence files, various intermediate output files, and metrics such as `assembly_length_unambiguous` and `mean_coverage`.
 
-The columns shown or hidden for a data table can be configured by clicking the (gear) **SETTINGS** button above the table and selecting columns as desired.
+The columns shown or hidden for a data table can be configured by clicking the<img width="26" display="inline" alt="Screenshot 2023-08-14 at 12 40 52" src="https://github.com/broadinstitute/viral-workshops/assets/53064/d5123eb3-ccd3-4a9d-8a2a-4ef62ae9bd65">**SETTINGS** button above the table and selecting columns as desired.
+
+<img width="761" alt="column settings button" src="https://github.com/broadinstitute/viral-workshops/assets/53064/6bbb1bc7-17e5-447e-bd12-184a67f16504">
+
+<img width="822" alt="displayed column selector" src="https://github.com/broadinstitute/viral-workshops/assets/53064/355f570f-a9bf-4290-b09d-bbbb91ccbef2">
 
 ## Other related resources
 

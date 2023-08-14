@@ -59,6 +59,7 @@ organism, what we did to populate these workspaces was:
 | G5731.1 | SRR1972918 | SAMN03254209 |
 | G5732.1 | SRR1972919 | SAMN03254210 |
 | G5735.2 | SRR1972920 | SAMN03254213 |
+
 3. Ran the `fetch_sra_to_bam` workflow on all rows of the `ebov` table to download reads from all four SRA accessions,
 populating more columns of the table with raw reads and basic run/sample metadata.
 4. Ran the `fetch_annotations` workflow (on file paths, not data tables) to download the reference genome (KJ660346.2)

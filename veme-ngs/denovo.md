@@ -2,6 +2,12 @@
 
 This is a walkthrough demonstrating *de novo* assembly workflows on the Terra cloud platform on Lassa virus Illumina data.
 
+# Contents
+{:.no_toc}
+
+1. Table of Contents
+{:toc}
+
 ## Data set
 
 The data come from febrile patients with Lassa fever in Nigeria, where
@@ -156,7 +162,7 @@ The job submission page for your submission under the Job History tab should loo
 
 Depending on some predictable and some unpredictable factors, the `assemble_denovo` jobs should complete within <20 minutes for input data of the sizes provided in this exercise.
 
-### Evaluating results
+## Evaluating results
 
 You can examine the outputs and results of each step of each job via the Job History page, however, for large submissions, 
 it is easier to view the saved top level outputs in the data table—in this case, the `de_novo_assembly` table. 

@@ -74,7 +74,7 @@ Make sure to set the following:
 - The `classify_single` "Version:" should be already set to `master`, but make sure it is set as such.
 - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
 - "Step 1 -- Select root entity type:" should be set to `metagenomics`.
-- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `metagenomics` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected metagenomicss".
+- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `metagenomics` table so that we launch 18 jobs at the same time, one for each sample x database combination in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "18 selected metagenomicss" (yes, it's just adding an "s" to the table name).
 - In the inputs table, we will need to populate the following required inputs:
   - `classify_single.kraken2_db_tgz` (required) should be set to `this.k2_db`
   - `classify_single.krona_taxonomy_db_kraken2_tgz` (required) should be set to `workspace.krona_taxonomy_tab`
@@ -86,7 +86,7 @@ Make sure to set the following:
 
 The resulting workflow launch page should look like this when you are ready:
 
-<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/e4ac4f5a-cbc3-4247-8d39-3f455cea6432">
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/b3b1e2f8-f206-4ddf-bd7d-31557b015513">
 
 Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
 status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.

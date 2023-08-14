@@ -164,7 +164,7 @@ columns, including aligned BAM files, coverage plots, consensus genomes (FASTA),
 `align_and_plot` produces a few key outputs of interest:
 - Aligned reads:
   - All reads (aligned and unaligned): `aligned_bam` (BAM), `aligned_bam_idx` (BAI)
-  - Aligned reads only (usually much smaller files): `aligned_only_reads_bam`, `aligned_only_reads_bam_idx`
+  - Aligned, properly paired, deduplicated reads only (usually much smaller files than all reads): `aligned_only_reads_bam`, `aligned_only_reads_bam_idx`
 - Metrics and counts:
   - Read counts: input (`reads_provided`), aligned (`reads_aligned`), properly paired read pairs (`read_pairs_aligned`)
   - Base counts: base-pairs aligned (`bases_aligned`), reference genome length (`reference_length`)
@@ -178,7 +178,7 @@ Typically the aligned read counts and coverage plots are looked at first.
 - Consensus genome and metrics: `assembly_fasta` (FASTA), `assembly_length`, `assembly_length_unambiguous`, `assembly_mean_coverage`, `align_to_self_merged_coverage_plot` (PDF)
 - Aligned reads to reference: `align_to_ref_merged_aligned_trimmed_only_bam` (BAM), `align_to_ref_merged_coverage_plot` (PDF), `align_to_ref_isnvs_vcf` (VCF)
 
-Typically, the `assembly_fasta` is used for downstream analyses (phylogenetic, etc) as well as data release/sharing, and other outputs listed above are used to evaluate sample data quality.
+Typically, the `assembly_fasta` is used for most downstream analyses (phylogenetic, typing, species-specific characterization) as well as data release and sharing. The other outputs listed above are used to evaluate sample data quality and filter which assemblies are included in downstream analysis.
 
 #### Coverage plot outputs
 

@@ -32,14 +32,14 @@ data set, what we did to populate these workspaces was:
 [Dockstore collection](https://dockstore.org/organizations/BroadInstitute/collections/pgs):
 `fastq_to_ubam`, `classify_single`.
 2. Copied two fastq files from the workshop data folder to the Terra workspace bucket.
-3. Created a Terra table called `metagenomics` with the four rows representing a 2x2 combination of samples and databases:
+3. Created a Terra table called `metagenomics` with four rows representing a 2x2 combination of samples and kraken2 databases:
 
 | entity:metagenomics_id | sample | fastq1 | k2_db |
 | --- | --- | --- | --- |
 | LongBoat-PlusPF | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
 | Palmetto-PlusPF | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| LongBoat-MinusB | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
-| Palmetto-MinusB | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz |
+| LongBoat-MiniK2 | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
+| Palmetto-MiniK2 | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
 
 4. Ran the `fastq_to_ubam` workflow on all rows of the `metagenomics` table, with `platform_name` = "ILLUMINA",
 `library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
@@ -51,6 +51,22 @@ data set, what we did to populate these workspaces was:
   - `workspace.ncbi_taxdump` = `gs://pathogen-public-dbs/v1/taxdump-20221213.tar.gz`
   - `workspace.spikein_db` = `gs://pathogen-public-dbs/v1/ercc_spike-ins-20170523.fa`
   - `workspace.trim_clip_db` = `gs://pathogen-public-dbs/v0/contaminants.clip_db.fasta`
+6. Added 12 more rows to the `metagenomics` table including a combination of four EBOV and four LASV samples (from previous exercises) and two kraken2 databases (PlusPF and a Broad custom):
+
+| entity:metagenomics_id | sample | k2_db | unmapped_bam |
+| --- | --- | --- | --- |
+| G5723.1-PlusPF | G5723.1 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `ebov` table) |
+| G5731.1-PlusPF | G5731.1 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `ebov` table) |
+| G5732.1-PlusPF | G5732.1 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `ebov` table) |
+| G5735.2-PlusPF | G5735.2 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `ebov` table) |
+| LASV_NGA_2016_0409-Broad | LASV_NGA_2016_0409 | gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_0409-PlusPF | LASV_NGA_2016_0409 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_0668-Broad | LASV_NGA_2016_0668 | gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_0668-PlusPF | LASV_NGA_2016_0668 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_0811-Broad | LASV_NGA_2016_0811 | gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_0811-PlusPF | LASV_NGA_2016_0811 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_1423-Broad | LASV_NGA_2016_1423 | gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst | (copied from `de_novo_assembly` table) |
+| LASV_NGA_2016_1423-PlusPF | LASV_NGA_2016_1423 | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst | (copied from `de_novo_assembly` table) |
 
 The above steps do not take very long (a few minutes here and there) but were not worth spending the time on in this workshop.
 But these steps are generalizable to any scenario or organism where you want to run your own fastq reads against our
@@ -115,8 +131,8 @@ You can click on the live links for any file element in the Terra data table and
 1. Click the blue DOWNLOAD button to download it to your computer. You can then open the downloaded file in a browser to view.
 2. If you have the gcloud API installed in a command line environment, copy and paste the `gsutil cp` command to your terminal and it will download the file that way.
 3. Click on "View this file in the Google Cloud Storage Browser".
-  a. This opens not the file, but its parent directory in a web browser for Google Cloud buckets. This directory will contain many other files, but look for the link to the file you were looking for originally (LongBoat.kraken2.krona.html), and click that.
-  b. This leads to an "Object details" page with information and several links for this particular file. Click the "Authenticated URL" link. This will open the krona plot in your web browser.
+4. This opens not the file, but its parent directory in a web browser for Google Cloud buckets. This directory will contain many other files, but look for the link to the file you were looking for originally (LongBoat.kraken2.krona.html), and click that.
+5. This leads to an "Object details" page with information and several links for this particular file. Click the "Authenticated URL" link. This will open the krona plot in your web browser.
 
 Repeat the above steps for all four results to open in separate tabs.
 
@@ -124,11 +140,11 @@ Below are what the outputs should look like for your run.
 
 #### Arboviral results
 
-Krona plots of the arboviral data, two different JHU-distributed databases (MinusB and PlusPF):
-- LongBoat: [MinusB](krona/LongBoat.kraken2-MinusB.krona.html), [PlusPF](krona/LongBoat.kraken2-PlusPF.krona.html)
-- Palmetto: [MinusB](krona/Palmetto.kraken2-MinusB.krona.html), [PlusPF](krona/Palmetto.kraken2-PlusPF.krona.html)
+Krona plots of the arboviral data, two different JHU-distributed databases (MiniK2 and PlusPF):
+- LongBoat: [MiniK2](krona/LongBoat.kraken2-MiniK2.krona.html), [PlusPF](krona/LongBoat.kraken2-PlusPF.krona.html)
+- Palmetto: [MiniK2](krona/Palmetto.kraken2-MiniK2.krona.html), [PlusPF](krona/Palmetto.kraken2-PlusPF.krona.html)
 
-The dominant viral hit is Piry virus in both samples, but if you expand the Viruses wedge you will see a small number of Dengue virus type 4 reads in both.
+The dominant viral hit is Piry virus in both samples, but if you expand the Viruses wedge you will see a small number of Dengue virus type 4 reads in both. The Broad-database results ([LongBoat](krona/Palmetto.kraken2-Broad.krona.html), [Palmetto](krona/Palmetto.kraken2-Broad.krona.html)), do not differ significantly from the PlusPF results.
 
 #### Ebola results
 

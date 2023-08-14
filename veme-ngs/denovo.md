@@ -43,7 +43,7 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 
 ## Terra workspace
 
-For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra) in advance and loaded in the sequencing read data and required reference databases. 
+For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023) in advance and loaded in the sequencing read data and required reference databases. 
 If you are starting from scratch on a new data set, what we did to populate these workspaces was:
 
 1. Imported the following workflows from the Broad Institute Viral Genomics
@@ -64,12 +64,12 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 | **entity:de_novo_assembly_id** | **raw_reads_unaligned_bam** |
 |---|---|
-| LASV_NGA_2016_0409 | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
-| LASV_NGA_2016_0668 | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
-| LASV_NGA_2016_0759 | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
-| LASV_NGA_2016_0811 | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
-| LASV_NGA_2016_1423 | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/raw_read_data/LASV_NGA_2016_1423.bam |
-| LASV_NGA_2016_1547 | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
+| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
+| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
+| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
+| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
+| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1423.bam |
+| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
 
 5. Ran the `deplete_only` workflow on all rows of the `de_novo_assembly` table, with:
   - `deplete_taxa.raw_reads_unmapped_bam` = `this.raw_reads_unaligned_bam`
@@ -83,7 +83,7 @@ If you are starting from scratch on a new data set, what we did to populate thes
 8. Added the following rows to the Workspace Data table:
   - `workspace.blastDbs` = `gs://pathogen-public-dbs/v0/GRCh37.68_ncRNA.fasta.zst, gs://pathogen-public-dbs/v0/hybsel_probe_adapters.fasta` (string list)
   - `workspace.bwaDbs` = `gs://pathogen-public-dbs/v0/hg19.bwa_idx.tar.zst`
-  - `workspace.lasv_reference_scaffold_genomes` = `gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/references/LASV/ref-lasv-BNI_Nig08_A19.fasta, gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/references/LASV/ref-lasv-ISTH2376.fasta, gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/references/LASV/ref-lasv-KGH_G502.fasta` (string list)
+  - `workspace.lasv_reference_scaffold_genomes` = `gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-BNI_Nig08_A19.fasta, gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-ISTH2376.fasta, gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-KGH_G502.fasta` (string list)
 
 
 ## Walkthrough
@@ -91,13 +91,13 @@ If you are starting from scratch on a new data set, what we did to populate thes
 ### Clone the workspace
 
 A workspace for these exercises has been created in advance, and contains the required input data organized into distinct tables.
-The tables can be explored from the "[**Data**](https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra/data)"
+The tables can be explored from the "[**Data**](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023/data)"
 tab.
 
 Before beginning the exercise, the pre-made workspace will be copied to a "clone" that will be yours to use for these exercises. 
 Using a cloned workspace will ensure that the compute jobs and their outputs you see are yours alone.
 
-- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/pathogen-genomic-surveillance/VEME%20de%20novo%20assembly%20using%20Terra)
+- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
 - Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
 - Select **Clone**
 - In the modal dialog box that appears: 

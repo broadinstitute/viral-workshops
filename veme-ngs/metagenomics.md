@@ -84,7 +84,7 @@ Off-the-shelf kraken2 databases are distributed by John's Hopkins University (th
 
 ### Clone the workspace
 
-TO DO
+We will use the same workspace that you have already cloned from the previous [Ebola read alignment exercise](alignment.md#clone-the-workspace).
 
 ### Run classify_single with two different kraken2 databases
 

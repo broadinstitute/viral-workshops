@@ -91,19 +91,7 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 ### Clone the workspace
 
-A workspace for these exercises has been created in advance, and contains the required input data organized into distinct tables.
-The tables can be explored from the "[**Data**](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023/data)"
-tab.
-
-Before beginning the exercise, the pre-made workspace will be copied to a "clone" that will be yours to use for these exercises. 
-Using a cloned workspace will ensure that the compute jobs and their outputs you see are yours alone.
-
-- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
-- Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
-- Select **Clone**
-- In the modal dialog box that appears: 
-  - Give the new (clone) workspace a descriptive `Workspace name`
-  - The `Billing project`, `Bucket location`, `Description`, and remaining fields can be left as-is to use their default values.
+We will use the same workspace that you have already cloned from the previous [Ebola read alignment exercise](alignment.md#clone-the-workspace).
 
 ### Run assemble_denovo
 

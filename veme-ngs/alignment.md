@@ -71,7 +71,21 @@ But these steps are generalizable to any scenario or organism where you want to 
 
 ### Clone the workspace
 
-TO DO
+A workspace for these exercises has been created in advance, and contains the required input data organized into distinct tables.
+The tables can be explored from the "[**Data**](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023/data)"
+tab.
+
+Before beginning the exercise, the pre-made workspace will be copied to a "clone" that will be yours to use for these exercises. 
+Using a cloned workspace will ensure that the compute jobs and their outputs you see are yours alone.
+
+- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
+- Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
+- Select **Clone**
+- In the modal dialog box that appears: 
+  - Give the new (clone) workspace a descriptive `Workspace name` -- for the purposes of this workshop, include your initials or name in order to uniquely identify it (e.g. "VEME NGS 2023 Joe Smith").
+  - Set the `Billing project` to "veme-training" (if it isn't already).
+  - Leave the `Bucket location` and `Description` as their default values.
+  - **Do not check** the protected data box or select an Authorization domain -- these will (intentionally) make data access much more difficult and is unnecessary for most work on Terra, especially training workshops.
 
 ### Run align_and_plot
 

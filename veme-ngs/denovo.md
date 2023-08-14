@@ -146,7 +146,10 @@ Click the **LAUNCH** button to start the compute jobs.
 This will take you to a job submission status page for your newly launched workflow, 
 showing six rows in the bottom table corresponding to the six jobs that have been launched.
 
+<img width="80%" alt="Screenshot 2023-08-14 at 12 44 56" src="https://github.com/broadinstitute/viral-workshops/assets/53064/b6557013-79d2-448b-b99c-2bf4dd698432">
+
 No connectivity or power is required at the client side during this time; the jobs will continue to run on Terra if you navigate away from the page or shutdown your computer.
+
 The total runtime (real-world clock time) should be somewhat independent of whether you launched jobs on 1 or 1,000 samples, as the workflows are executed in parallel on separate cloud compute instances.
 
 Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.

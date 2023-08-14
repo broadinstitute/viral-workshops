@@ -78,6 +78,8 @@ tab.
 Before beginning the exercise, the pre-made workspace will be copied to a "clone" that will be yours to use for these exercises. 
 Using a cloned workspace will ensure that the compute jobs and their outputs you see are yours alone.
 
+<img width="40%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/7ee1527f-713e-4b27-88b0-bf47cd266278">
+
 - Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
 - Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
 - Select **Clone**
@@ -86,6 +88,9 @@ Using a cloned workspace will ensure that the compute jobs and their outputs you
   - Set the `Billing project` to "veme-training" (if it isn't already).
   - Leave the `Bucket location` and `Description` as their default values.
   - **Do not check** the protected data box or select an Authorization domain -- these will (intentionally) make data access much more difficult and is unnecessary for most work on Terra, especially training workshops.
+ 
+<img width="40%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/122baba8-432c-482a-b4c5-507fc7f5e6d0">
+
 
 ### Run align_and_plot
 

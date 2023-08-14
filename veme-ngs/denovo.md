@@ -116,6 +116,9 @@ Make sure to set the following:
 - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
 - "Step 1 — Select root entity type:" should be set to `de_novo_assembly`.
 - "Step 2 — **SELECT DATA**" — click on this button and a data selector box will pop up. Check box all six rows of the `de_novo_assembly` table so that we launch multiple assembly jobs at the same time, one for each sample in the table. After selecting the rows, click the **OK** button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "6 selected de_novo_assemblys" [sic].
+
+<img width="80%" alt="input data selection" src="https://github.com/broadinstitute/viral-workshops/assets/53064/5743430f-46d9-4844-83bd-38ee8b0a480f">
+
 - In the inputs table on the lower part of the page, the following required inputs will need to be set:
   - `assemble_denovo.reads_unmapped_bams` (required) should be set to `this.cleaned_bam`
   - `assemble_denovo.reference_genome_fasta` (required) should be set to `workspace.lasv_reference_scaffold_genomes`
@@ -133,8 +136,10 @@ Another modal dialog box will appear with an input box to enter a (human-readabl
 This is a helpful field to describe distinct or distinguishing features of the jobs being submitted, 
 so jobs with various parameters or inputs subsets can be quickly located among other jobs that have been run.
 
+<img width="461" max-width="80%" alt="workflow launch description modal" src="https://github.com/broadinstitute/viral-workshops/assets/53064/75070f7e-83ed-463f-b316-0a048f662acc">
+
 Enter a description of your choosing, 
-such as "de novo assembly of LASV genomes from 4 samples, with min_unambig passing threshold set to 0.8"
+such as "de novo assembly of LASV genomes from six samples, with min_unambig passing threshold set to 0.8"
 
 Click the **LAUNCH** button to start the compute jobs.
 

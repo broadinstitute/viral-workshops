@@ -9,7 +9,7 @@ workflows on the Terra cloud platform on Ebola virus Illumina data.
 1. Table of Contents
 {:toc}
 
-## Data set
+## Description of data set
 
 The data comes from febrile Ebola patients in Sierra Leone.
 The data and findings are described in [Park, et al, 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4503805/)
@@ -22,7 +22,7 @@ RNA-seq laboratory approaches. All patients were sampled in 2014 from Sierra Leo
 clade of the Makona variant of Zaire ebolavirus. This exercise will utilize the *de facto* standard Makona C15 reference
 genome (KJ660346.2, March 2014, Guinea) for alignments and variant calling.
 
-## Workflows
+## Description of workflows
 
 The exercise will utilize workflows from the Broad Viral Genomics group.
 This will include the read alignment pipeline
@@ -43,7 +43,7 @@ The `assemble_refbased` workflow performs the same alignment to a reference, opt
 for primers if provided a bed file (for sequencing protocols involving PCR amplification followed by tagmentation),
 produces plots and metrics, and calls a consensus assembly and intrahost variants.
 
-## Terra workspace
+## Terra workspace setup
 
 For simplicity, we have already loaded in the read data and the reference genomes. If you are starting from scratch on a new
 organism, what we did to populate these workspaces was:

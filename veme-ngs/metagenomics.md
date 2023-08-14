@@ -96,7 +96,7 @@ Make sure to set the following:
 - The `classify_single` "Version:" should be already set to `master`, but make sure it is set as such.
 - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
 - "Step 1 -- Select root entity type:" should be set to `metagenomics`.
-- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `metagenomics` table so that we launch 18 jobs at the same time, one for each sample x database combination in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "18 selected metagenomicss" (yes, it's just adding an "s" to the table name).
+- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all rows of the `metagenomics` table so that we launch 16 jobs at the same time, one for each sample x database combination in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "16 selected metagenomicss" (yes, it's just adding an "s" to the table name).
 - In the inputs table, we will need to populate the following required inputs:
   - `classify_single.kraken2_db_tgz` (required) should be set to `this.k2_db`
   - `classify_single.krona_taxonomy_db_kraken2_tgz` (required) should be set to `workspace.krona_taxonomy_tab`

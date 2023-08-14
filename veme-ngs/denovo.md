@@ -64,12 +64,12 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 | **entity:de_novo_assembly_id** | **raw_reads_unaligned_bam** |
 |---|---|
-| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
-| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
-| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
-| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
-| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_1423.bam |
-| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/de_novo_assembly/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
+| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
+| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
+| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
+| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
+| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_1423.bam |
+| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
 
 5. Ran the `deplete_only` workflow on all rows of the `de_novo_assembly` table, with:
   - `deplete_taxa.raw_reads_unmapped_bam` = `this.raw_reads_unaligned_bam`

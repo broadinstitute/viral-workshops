@@ -42,20 +42,20 @@ data set, what we did to populate these workspaces was:
 
 | entity:metagenomics_id | sample | fastq1 | k2_db |
 | --- | --- | --- | --- |
-| LongBoat-PlusPF | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| Palmetto-PlusPF | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| LongBoat-MiniK2 | LongBoat | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
-| Palmetto-MiniK2 | Palmetto | gs://fc-087bd768-59d8-44d6-840c-db53ee977ccd/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
+| LongBoat-PlusPF | LongBoat | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
+| Palmetto-PlusPF | Palmetto | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
+| LongBoat-MiniK2 | LongBoat | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
+| Palmetto-MiniK2 | Palmetto | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
 
 4. Ran the `fastq_to_ubam` workflow on all rows of the `metagenomics` table, with `platform_name` = "ILLUMINA",
 `library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
 5. Added the following rows to the Workspace Data table:
   - `workspace.kraken2_db_pluspf` = `gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst`
   - `workspace.kraken2_db_broad_custom` = `gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst`
-  - `workspace.kraken2_db_jhu_minusbacterial` = `gs://pathogen-public-dbs/jhu/k2_minusb_20230605.tar.gz`
+  - `workspace.kraken2_db_minik2` = `gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst`
   - `workspace.krona_taxonomy_tab` = `gs://pathogen-public-dbs/v1/krona.taxonomy-20221213.tab.zst`
   - `workspace.ncbi_taxdump` = `gs://pathogen-public-dbs/v1/taxdump-20221213.tar.gz`
-  - `workspace.spikein_db` = `gs://pathogen-public-dbs/v1/ercc_spike-ins-20170523.fa`
+  - `workspace.spikein_db` = `gs://pathogen-public-dbs/v0/ERCC_96_nopolyA.fasta`
   - `workspace.trim_clip_db` = `gs://pathogen-public-dbs/v0/contaminants.clip_db.fasta`
 6. Added 12 more rows to the `metagenomics` table including a combination of four EBOV and four LASV samples (from previous exercises) and two kraken2 databases (PlusPF and a Broad custom):
 

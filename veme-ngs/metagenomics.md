@@ -1,12 +1,12 @@
+# Viral metagenomics
+
+This is a walkthrough demonstrating metagenomic workflows on the Terra cloud platform on Illumina data from arboviral surveillance sampling. We will also run on the previously used example data from the other two exercises.
+
 # Contents
 {:.no_toc}
 
 1. Table of Contents
 {:toc}
-
-# Viral metagenomics
-
-This is a walkthrough demonstrating metagenomic workflows on the Terra cloud platform on Illumina data from arboviral surveillance sampling. We will also run on the previously used example data from the other two exercises.
 
 ## Data set
 
@@ -80,7 +80,7 @@ kraken2-based classification pipeline.
 
 Off-the-shelf kraken2 databases are distributed by John's Hopkins University (the authors of Kraken) at [this site](https://benlangmead.github.io/aws-indexes/k2) and redistributed on public Google Cloud buckets by the Broad.
 
-## Walkthrough
+## Analysis walkthrough
 
 ### Clone the workspace
 
@@ -125,7 +125,7 @@ Depending on some predictable and some unpredictable factors, the `classify_sing
 
 About 1 day after job completion, total cloud compute costs are displayed on this page (in USD). Prior to that, the run costs are listed as "N/A". Kraken2 analysis costs and runtime tend to scale more with the size of the kraken2 database than the size of the input sequencing data (unless it is an extremely large volume of sequencing data).
 
-### Evaluating results
+## Evaluating results
 
 You can examine the outputs and results of each step of each job via the Job History page, however, for large submissions, it is easier to view the saved top level outputs in the data table--in this case, the `metagenomics` table. The `metagenomics` table now has a number of additional output columns, including krona plots for viewing metagenomics results, text summary files, subsetted/filtered read sets, fastqc plots on subsetted reads, and viral *de novo* contigs.
 

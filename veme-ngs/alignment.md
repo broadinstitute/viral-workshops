@@ -3,6 +3,12 @@
 This is a walkthrough demonstrating alignment, variant calling, and consensus calling
 workflows on the Terra cloud platform on Ebola virus Illumina data.
 
+# Contents
+{:.no_toc}
+
+1. Table of Contents
+{:toc}
+
 ## Data set
 
 The data comes from febrile Ebola patients in Sierra Leone.
@@ -61,7 +67,7 @@ and manually added a pointer to the output fasta file in the Workspace Data tabl
 The above steps do not take very long (a few minutes here and there) but were not worth spending the time on in this workshop.
 But these steps are generalizable to any scenario or organism where you want to align SRA reads against a Genbank reference genome.
 
-## Walkthrough
+## Analysis walkthrough
 
 ### Clone the workspace
 
@@ -127,7 +133,7 @@ Depending on some predictable and some unpredictable factors, the `align_and_plo
 and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether
 you launched jobs on 1 or 1,000 samples.
 
-### Evaluating results
+## Evaluating results
 
 You can examine the outputs and results of each step of each job via the Job History page, however, for large submissions, it is easier
 to view the saved top level outputs in the data table--in this case, the `ebov` table. The `ebov` table now has a number of additional output

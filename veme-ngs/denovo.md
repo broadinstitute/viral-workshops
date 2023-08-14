@@ -119,7 +119,7 @@ Make sure to set the following:
 
 The resulting workflow launch page should look like this when you are ready:
 
-<img width="80%" alt="image of workflow launch configuration" src=""/>
+<img width="80%" alt="image of workflow launch configuration" src="https://github.com/broadinstitute/viral-workshops/assets/53064/51711f0a-00c3-409b-91d9-9ef2ed034a75">
 
 Click the **RUN ANALYSIS** button, which should be dark blue if all required inputs are properly set. 
 

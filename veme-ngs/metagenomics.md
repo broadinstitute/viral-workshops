@@ -115,11 +115,9 @@ status page for your newly launched workflow, showing four rows in the bottom ta
 
 ### Wait for job completion
 
-You will receive an email when each of your submissions complete (along with information about whether they succeeded or failed). Additionally, you can also click on the JOB HISTORY tab at the top of your workspace to check on the status of your analyses in progress. When `classify_single` is complete, you can move on to evaluating the results. The job submission page for your submission under the Job History tab should look like this when the submissions are complete:
+You will receive an email when each of your submissions complete (along with information about whether they succeeded or failed). Additionally, you can also click on the JOB HISTORY tab at the top of your workspace to check on the status of your analyses in progress. When `classify_single` is complete, you can move on to evaluating the results. The job submission page for your submission under the Job History tab should look something like this when the submissions are complete:
 
-<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/42ad9346-dd59-463a-bdf1-b60677ee03e0">
-
-TO DO -- re-do this screenshot for four runs instead of three (oops)
+<img width="80%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/dad13070-a20d-4212-b485-121737a5ad8f">
 
 Depending on some predictable and some unpredictable factors, the `classify_single` jobs should complete within about 30 minutes for the minikraken kraken2 databases and about 60 minutes for the PlusPF databases, but may take longer. No user intervention is required while you await results, and no connectivity or power is required at the client side during this time. The runtime should be somewhat independent of whether you launched jobs on 1 or 1,000 samples. Some intermediate outputs are viewable before the full analysis completes, but it's often easier to wait for final results to be loaded into the table.
 

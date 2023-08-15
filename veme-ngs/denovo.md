@@ -154,7 +154,7 @@ Additionally, you can also click on the **JOB HISTORY** tab at the top of your w
 When the `assemble_denovo` workflow jobs have finished running, you can move on to evaluating the results.
 The job submission page for your submission under the Job History tab should look like this when the submissions are complete:
 
-<img width="80%" alt="image of job history" src=""/>
+<img width="80%" alt="image of job history" src="https://github.com/broadinstitute/viral-workshops/assets/53064/68eea307-7030-4cd2-8763-127f798e542f">
 
 Depending on some predictable and some unpredictable factors, the `assemble_denovo` jobs should complete within <20 minutes for input data of the sizes provided in this exercise.
 

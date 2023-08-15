@@ -174,6 +174,31 @@ Among the many new columns, the following contain the outputs of the `assemble_d
  - `assembly_length_unambiguous` — the number of distinct positions in the final assemgbly with unambigious bases (i.e. where the bases are known and not `N`). For a complete assembly, `assembly_length_unambiguous` will be close in value to the length of a known reference genome
  - `mean_coverage` — the number of reads mapped to the assembly, divided by the number of unambiguous bases
 
+The metrics for the assemblies should be similar to those in the following table:
+
+| entity:de_novo_assembly_id | assembly_length | assembly_length_unambiguous | mean_coverage      |
+|----------------------------|-----------------|-----------------------------|--------------------|
+| LASV_NGA_2016_0409         | 9056            | 5292                        | 55.897968197879855 |
+| LASV_NGA_2016_0668         |                 |                             |                    |
+| LASV_NGA_2016_0759         | 10551           | 10428                       | 161.0294758790636  |
+| LASV_NGA_2016_0811         | 8334            | 2717                        | 1.8178545716342693 |
+| LASV_NGA_2016_1423         | 10588           | 10588                       | 3051.3962032489612 |
+| LASV_NGA_2016_1547         | 9289            | 5363                        | 5.262568629561847  |
+
+Near-complete assemblies were produced for two samples, LASV_NGA_2016_1423 and LASV_NGA_2016_0759. Two produced partial assemblies, LASV_NGA_2016_0409 and LASV_NGA_2016_1547.
+The remaining did not yield usable assemblies, though one, LASV_NGA_2016_0811, did have low-depth partial coverage across the genome.
+
+Plots illustrating coverage depth for the assemblies are now available in PDF files listed in the `coverage_plot` column, and included here for reference:
+ - [LASV_NGA_2016_0409](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0409.ll2.coverage_plot.pdf)
+ - [LASV_NGA_2016_0759](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0759.ll1.cleaned.downsampled.dedup.mapped.coverage_plot.pdf)
+ - [LASV_NGA_2016_0811](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0811.ll3.coverage_plot.pdf)
+ - [LASV_NGA_2016_1423](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_1423.coverage_plot.pdf)
+ - [LASV_NGA_2016_1547](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_1547.ll4.coverage_plot.pdf)
+
+The two colors shown each plot correspond to the two segments of the LASV genome (L, and S, respectively).
+
+<img width="80%" alt="assembly coverage plot overview" src="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/coverage_overview.png">
+
 ### Inspecting results from this walkthrough
 
 Recall that when the `assemble_denovo` workflow was configured, the `min_unambig` parameter was set to `0.8`. 

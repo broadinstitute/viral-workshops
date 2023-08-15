@@ -93,18 +93,18 @@ workspace. One of them is `classify_single`. Click on `classify_single`.
 
 This will lead to a workflow launch page where you will need to set the parameters and inputs before launching your analyses.
 Make sure to set the following:
-- The `classify_single` "Version:" should be already set to `master`, but make sure it is set as such.
-- "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
-- "Step 1 -- Select root entity type:" should be set to `metagenomics`.
-- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all rows of the `metagenomics` table so that we launch 16 jobs at the same time, one for each sample x database combination in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "16 selected metagenomicss" (yes, it's just adding an "s" to the table name).
-- In the inputs table, we will need to populate the following required inputs:
-  - `classify_single.kraken2_db_tgz` (required) should be set to `this.k2_db`
-  - `classify_single.krona_taxonomy_db_kraken2_tgz` (required) should be set to `workspace.krona_taxonomy_tab`
-  - `classify_single.ncbi_taxdump_tgz` (required) should be set to `workspace.ncbi_taxdump`
-  - `classify_single.reads_bams` (required) should be set to `this.unmapped_bam`
-  - `classify_single.spikein_db` (required) should be set to `workspace.spikein_db`
-  - `classify_single.trim_clip_db` (required) should be set to `workspace.trim_clip_db`
-- Click the SAVE button after you've set all the inputs.
+ - The `classify_single` "Version:" should be already set to `master`, but make sure it is set as such.
+ - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
+ - "Step 1 -- Select root entity type:" should be set to `metagenomics`.
+ - "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all rows of the `metagenomics` table so that we launch 16 jobs at the same time, one for each sample x database combination in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "16 selected metagenomicss" (yes, it's just adding an "s" to the table name).
+ - In the inputs table, we will need to populate the following required inputs:
+   - `classify_single.kraken2_db_tgz` (required) should be set to `this.k2_db`
+   - `classify_single.krona_taxonomy_db_kraken2_tgz` (required) should be set to `workspace.krona_taxonomy_tab`
+   - `classify_single.ncbi_taxdump_tgz` (required) should be set to `workspace.ncbi_taxdump`
+   - `classify_single.reads_bams` (required) should be set to `this.unmapped_bam`
+   - `classify_single.spikein_db` (required) should be set to `workspace.spikein_db`
+   - `classify_single.trim_clip_db` (required) should be set to `workspace.trim_clip_db`
+ - Click the SAVE button after you've set all the inputs.
 
 The resulting workflow launch page should look like this when you are ready:
 
@@ -155,10 +155,10 @@ Both the minikraken2 and PlusPF databases perform similarly for viral reads--the
 #### Ebola results
 
 Krona plots from the previously used [Ebola](alignment.md) example data against the JHU PlusPF database:
-- [EBOV G5723.1](krona/SRR1972917.kraken2.krona.html)
-- [EBOV G5731.1](krona/SRR1972918.kraken2.krona.html)
-- [EBOV G5732.1](krona/SRR1972919.kraken2.krona.html)
-- [EBOV G5735.2](krona/SRR1972920.kraken2.krona.html)
+ - [EBOV G5723.1](krona/SRR1972917.kraken2.krona.html)
+ - [EBOV G5731.1](krona/SRR1972918.kraken2.krona.html)
+ - [EBOV G5732.1](krona/SRR1972919.kraken2.krona.html)
+ - [EBOV G5735.2](krona/SRR1972920.kraken2.krona.html)
 
 Notice the similar trends between the number of Zaire ebolavirus reads classified by kraken2 and the number of `reads_aligned` in the `ebov` table from the `assemble_refbased` workflow in the [Ebola exercise](alignment.md). There will be differences due to sensitivity of methodology (kraken2 vs minimap), as well as read deduplication (assemble_refbased counts are deduplicated, metagenomic hits are not) and other filters (assemble_refbased filters to properly paired aligned reads), but the general trend and orders of magnitude are similar.
 
@@ -172,10 +172,10 @@ Notice the similar trends between the number of Zaire ebolavirus reads classifie
 #### Lassa results
 
 Krona plots from the previously used [Lassa](denovo.md) example data against PlusPF and a custom Broad kraken2 database:
-- LASV_NGA_2016_0409: [PlusPF](krona/LASV_NGA_2016_0409.ll2.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0409.ll2.kraken2-Broad.krona.html)
-- LASV_NGA_2016_0668: [PlusPF](krona/LASV_NGA_2016_0668.ll4.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0668.ll4.kraken2-Broad.krona.html)
-- LASV_NGA_2016_0811: [PlusPF](krona/LASV_NGA_2016_0811.ll3.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0811.ll3.kraken2-Broad.krona.html)
-- LASV_NGA_2016_1423: [PlusPF](krona/LASV_NGA_2016_1423.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_1423.kraken2-Broad.krona.html)
+ - LASV_NGA_2016_0409: [PlusPF](krona/LASV_NGA_2016_0409.ll2.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0409.ll2.kraken2-Broad.krona.html)
+ - LASV_NGA_2016_0668: [PlusPF](krona/LASV_NGA_2016_0668.ll4.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0668.ll4.kraken2-Broad.krona.html)
+ - LASV_NGA_2016_0811: [PlusPF](krona/LASV_NGA_2016_0811.ll3.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_0811.ll3.kraken2-Broad.krona.html)
+ - LASV_NGA_2016_1423: [PlusPF](krona/LASV_NGA_2016_1423.kraken2-PlusPF.krona.html), [Broad](krona/LASV_NGA_2016_1423.kraken2-Broad.krona.html)
 
 Here are the number of Lassa virus reads detected by each kraken2 database:
 
@@ -195,16 +195,16 @@ To address the sensitivity issues with RefSeq, the Broad Viral Genomics group oc
 #### Other examples
 
 Other example krona plots from outside data sets:
-- Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))
-- Water/non-template-controls from [Broad Institute](krona/Broad_NTC.krona-report.html), [Universite Cheikh Anta Diop](krona/UCAD_W1.krona-report.html) -- NTCs should be run in every metagenomic sequencing batch and closely examined
-- Non-metagenomic examples of krona as a generalized heirarchical composition visualization tool: [nutritional composition](krona/Example%20-%20Granola.html), [MacOS user directory](krona/Example%20-%20File%20System.html)
+ - Nigerian unknown fatal fever, 2015 ([DNAsed](krona/NGA_FUO_Dnased.krona-report.html), [non-DNAsed](krona/NGA_FUO.all.krona-report.html))
+ - Water/non-template-controls from [Broad Institute](krona/Broad_NTC.krona-report.html), [Universite Cheikh Anta Diop](krona/UCAD_W1.krona-report.html) -- NTCs should be run in every metagenomic sequencing batch and closely examined
+ - Non-metagenomic examples of krona as a generalized heirarchical composition visualization tool: [nutritional composition](krona/Example%20-%20Granola.html), [MacOS user directory](krona/Example%20-%20File%20System.html)
 
 ### Subsetted read sets
 
 Among other outputs, kraken2 will classify every read in your input data--that is, it will assign an NCBI taxid to every read you gave it. Our pipeline additionally uses this output to create two subsetted read sets of your input data:
 
-- Dehosted reads: all reads from input that did *not* classify as `Vertebrata` or lower. This includes all non-vertebrate reads plus unclassified reads and those that classified at a higher taxonomic rank than the subphylum level. Reads are contained in the `cleaned_reads_unaligned_bam` output, with the numeric count provided in `read_counts_depleted` and the FastQC plot provided in `cleaned_fastqc`.
-- Deduplicated acellular reads: all reads from input that did *not* classify as `Vertebrata`, `other sequences` (synthetic constructs), or `Bacteria` and then PCR deduplicated via an alignment-free approach. Reads are contained in the `deduplicated_reads_unaligned` output, with the numeric count provided in `read_counts_dedup`.
+ - Dehosted reads: all reads from input that did *not* classify as `Vertebrata` or lower. This includes all non-vertebrate reads plus unclassified reads and those that classified at a higher taxonomic rank than the subphylum level. Reads are contained in the `cleaned_reads_unaligned_bam` output, with the numeric count provided in `read_counts_depleted` and the FastQC plot provided in `cleaned_fastqc`.
+ - Deduplicated acellular reads: all reads from input that did *not* classify as `Vertebrata`, `other sequences` (synthetic constructs), or `Bacteria` and then PCR deduplicated via an alignment-free approach. Reads are contained in the `deduplicated_reads_unaligned` output, with the numeric count provided in `read_counts_dedup`.
 
 The dehosted reads are typically the data set you will submit to SRA/ENA for public data release and these can be used for downstream analyses whether [alignment-based](alignment.md) or [assembly-based](denovo.md) (in the latter case, you can skip any dehosting steps to save time and cost, since it has already been done here).
 
@@ -223,5 +223,5 @@ Utilizing *de novo* contigs instead of raw reads for detection provides more sta
 ## Other related resources
 
 See also:
- - [https://github.com/cmavian/VEME_metagenomics](https://github.com/cmavian/VEME_metagenomics)
+ - For CLI methods on the same data set for this workshop, see [Carla Mavian's VEME notes](https://cmavian.github.io/VEME_metagenomics)
  - Ye, et al, Cell, 2019, *Benchmarking Metagenomics Tools for Taxonomic Classification* ([PMC6716367](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6716367/))

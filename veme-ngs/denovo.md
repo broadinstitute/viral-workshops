@@ -223,4 +223,4 @@ The columns shown or hidden for a data table can be configured by clicking the<i
 ## Other related resources
 
 See also:
- - [https://github.com/taylorpaisie/VEME_2023_NGS_Denovo_assembly](https://github.com/taylorpaisie/VEME_2023_NGS_Denovo_assembly)
+ - For CLI methods on a similar data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_2023_NGS_Denovo_assembly)

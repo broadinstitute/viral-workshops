@@ -81,15 +81,15 @@ Using a cloned workspace will ensure that the compute jobs and their outputs you
 
 <img width="40%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/7ee1527f-713e-4b27-88b0-bf47cd266278">
 
-- Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
-- Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
-- Select **Clone**
-- In the modal dialog box that appears: 
+ - Navigate to the [workspace for this workshop](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023)
+ - Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
+ - Select **Clone**
+ - In the modal dialog box that appears: 
   - Give the new (clone) workspace a descriptive `Workspace name` -- for the purposes of this workshop, include your initials or name in order to uniquely identify it (e.g. "VEME NGS 2023 Joe Smith").
   - Set the `Billing project` to "veme-training" (if it isn't already).
   - Leave the `Bucket location` and `Description` as their default values.
   - **Do not check** the protected data box or select an Authorization domain -- these will (intentionally) make data access much more difficult and is unnecessary for most work on Terra, especially training workshops.
- 
+
 <img width="40%" alt="image" src="https://github.com/broadinstitute/viral-workshops/assets/8513746/122baba8-432c-482a-b4c5-507fc7f5e6d0">
 
 
@@ -100,14 +100,14 @@ workspace. One of them is `align_and_plot`. Click on `align_and_plot`.
 
 This will lead to a workflow launch page where you will need to set the parameters and inputs before launching your analyses.
 Make sure to set the following:
-- The `align_and_plot` "Version:" should be already set to `master`, but make sure it is set as such.
-- "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
-- "Step 1 -- Select root entity type:" should be set to `ebov`.
-- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `ebov` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected ebovs".
-- In the inputs table, we will need to populate the following required inputs:
-  - `align.reads_unmapped_bam` (required) should be set to `this.reads_ubam`
-  - `align.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
-- Click the SAVE btuton after you've set all the inputs.
+ - The `align_and_plot` "Version:" should be already set to `master`, but make sure it is set as such.
+ - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
+ - "Step 1 -- Select root entity type:" should be set to `ebov`.
+ - "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `ebov` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected ebovs".
+ - In the inputs table, we will need to populate the following required inputs:
+   - `align.reads_unmapped_bam` (required) should be set to `this.reads_ubam`
+   - `align.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
+ - Click the SAVE btuton after you've set all the inputs.
 
 The resulting workflow launch page should look like this when you are ready:
 
@@ -123,14 +123,14 @@ workspace. One of them is `assemble_refbased`. Click on `assemble_refbased`.
 
 This will lead to a workflow launch page where you will need to set the parameters and inputs before launching your analyses.
 Make sure to set the following:
-- The `assemble_refbased` "Version:" should be already set to `master`, but make sure it is set as such.
-- "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
-- "Step 1 -- Select root entity type:" should be set to `ebov`.
-- "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `ebov` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected ebovs".
-- In the inputs table, we will need to populate the following inputs:
-  - `assemble_refbased.reads_unmapped_bams` (required) should be set to `this.reads_ubam`
-  - `assemble_refbased.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
-  - `assemble_refbased.sample_name` (optional) could be set to `this.ebov_id` to make for cleaner filenames and fasta headers, if desired
+ - The `assemble_refbased` "Version:" should be already set to `master`, but make sure it is set as such.
+ - "Run workflow(s) with inputs defined by data table" should be selected (not "file paths").
+ - "Step 1 -- Select root entity type:" should be set to `ebov`.
+ - "Step 2 -- SELECT DATA" -- click on this button and a data selector box will pop up. Check box all four rows of the `ebov` table so that we launch four jobs at the same time, one for each sample in the table. Hit the OK button on the lower right of the pop up box. This should return you to the workflow setup page which should now say that it will run on "4 selected ebovs".
+ - In the inputs table, we will need to populate the following inputs:
+   - `assemble_refbased.reads_unmapped_bams` (required) should be set to `this.reads_ubam`
+   - `assemble_refbased.reference_fasta` (required) should be set to `workspace.ref_genome_ebov`
+   - `assemble_refbased.sample_name` (optional) could be set to `this.ebov_id` to make for cleaner filenames and fasta headers, if desired
 
 The resulting workflow launch page should look like this when you are ready (optional input not shown here, as it is a page or two down below):
 
@@ -138,6 +138,11 @@ The resulting workflow launch page should look like this when you are ready (opt
 
 Click "RUN ANALYSIS" (which should be dark blue if you've filled in all inputs properly). This will take you to a job submission
 status page for your newly launched workflow, showing four rows in the bottom table corresponding to the four jobs that have been launched.
+
+If you are running this workflow on PCR amplicon sequencing libraries, you would also need to supply the following inputs (*these do not apply to this workshop's data set, which is metagenomic*):
+ - `assemble_refbased.trim_coords_bed` should be set to an input file (BED format) that describes the primer set used for library construction. If this differs for each sample, it is recommended to load this into the Terra data table. This will need to be provided by the laboratory team that sequenced these samples. Default value on empty input is not to perform any primer trimming. Failure to provide this input on PCR amplicon libraries may result in erroneous reference allele calls throughout the genome.
+ - `assemble_refbased.skip_mark_dupes` should be set to `true` for PCR amplicon libraries (since all reads are intentionally PCR duplicates, we do not want to remove them). Default value is false.
+ - `assemble_refbased.min_coverage` should be set to at least `20` or higher for PCR amplicon libraries (default value is `3` which is only appropriate for metagenomic libraries). Any positions in the genome with less than this amount of aligned coverage (after primer trimming and after duplicate removal, unless duplicate removal is skipped) will be assigned an `N` in the output fasta.
 
 ### Wait for job completion
 
@@ -162,10 +167,10 @@ columns, including aligned BAM files, coverage plots, consensus genomes (FASTA),
 #### Metrics
 
 `align_and_plot` produces a few key outputs of interest:
-- Aligned reads:
+ - Aligned reads:
   - All reads (aligned and unaligned): `aligned_bam` (BAM), `aligned_bam_idx` (BAI)
   - Aligned, properly paired, deduplicated reads only (usually much smaller files than all reads): `aligned_only_reads_bam`, `aligned_only_reads_bam_idx`
-- Metrics and counts:
+ - Metrics and counts:
   - Read counts: input (`reads_provided`), aligned (`reads_aligned`), properly paired read pairs (`read_pairs_aligned`)
   - Base counts: base-pairs aligned (`bases_aligned`), reference genome length (`reference_length`)
   - Base counts divided by reference genome length: `mean_coverage`
@@ -175,8 +180,8 @@ columns, including aligned BAM files, coverage plots, consensus genomes (FASTA),
 Typically the aligned read counts and coverage plots are looked at first.
 
 `assemble_refbased` produces a few key outputs of interest:
-- Consensus genome and metrics: `assembly_fasta` (FASTA), `assembly_length`, `assembly_length_unambiguous`, `assembly_mean_coverage`, `align_to_self_merged_coverage_plot` (PDF)
-- Aligned reads to reference: `align_to_ref_merged_aligned_trimmed_only_bam` (BAM), `align_to_ref_merged_coverage_plot` (PDF), `align_to_ref_isnvs_vcf` (VCF)
+ - Consensus genome and metrics: `assembly_fasta` (FASTA), `assembly_length`, `assembly_length_unambiguous`, `assembly_mean_coverage`, `align_to_self_merged_coverage_plot` (PDF)
+ - Aligned reads to reference: `align_to_ref_merged_aligned_trimmed_only_bam` (BAM), `align_to_ref_merged_coverage_plot` (PDF), `align_to_ref_isnvs_vcf` (VCF)
 
 Typically, the `assembly_fasta` is used for most downstream analyses (phylogenetic, typing, species-specific characterization) as well as data release and sharing. The other outputs listed above are used to evaluate sample data quality and filter which assemblies are included in downstream analysis.
 
@@ -202,10 +207,6 @@ Below are what the outputs should look like for our four EBOV genomes. The x-axi
 
 ## Other related resources
 
-The [TheiaCoV workflows for viral genomics](https://public-health-viral-genomics-theiagen.readthedocs.io/en/latest/overview.html) are highly
-popular in public health labs and come with a lot of documentation, training, and support. This is the recommended starting point for the most common
-microbial genomics analysis needs. The reference-based analysis workflows work well for a large range of viral taxa (they also have bacterial
-and eukaryotic workflows) and accept inputs for paired and single end Illumina data as well as ONT and ClearLabs data. They do not currently have
-a *de novo* assembly workflow, so this training utilizes the Broad Institute's *de novo* workflows instead.
-
-For CLI approaches on the same dataset for this workshop, see https://github.com/taylorpaisie/VEME_NGS_variant_calling
+See also:
+ - For CLI methods on the same data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_NGS_variant_calling)
+ - The [TheiaCoV workflows for viral genomics](https://public-health-viral-genomics-theiagen.readthedocs.io/en/latest/overview.html) are highly popular in public health labs and come with a lot of documentation, training, and support. This is the recommended starting point for the most common microbial genomics analysis needs. The reference-based analysis workflows work well for a large range of viral taxa (they also have bacterial and eukaryotic workflows) and accept inputs for paired and single end Illumina data as well as ONT and ClearLabs data. They do not currently have a *de novo* assembly workflow, so this training utilizes the Broad Institute's *de novo* workflows instead.

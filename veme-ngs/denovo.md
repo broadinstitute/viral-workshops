@@ -203,17 +203,7 @@ Plots illustrating coverage depth for the assemblies are now available in PDF fi
 
 The two colors shown each plot correspond to the two segments of the LASV genome (L, and S, respectively).
 
-<img width="80%" alt="assembly coverage plot overview" src="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/coverage_overview.png">
-
 <img width="80%" alt="assembly coverage plot overview" src="https://github.com/broadinstitute/viral-workshops/assets/53064/2c10640a-7226-4f80-a769-e796d261361e" usemap="#image-map">
-
-<map name="image-map">
-    <area target="_top" alt="LASV_NGA_2016_0409" title="LASV_NGA_2016_0409" href="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0409.ll2.coverage_plot.pdf" coords="7,0,1067,769" shape="rect">
-    <area target="_top" alt="LASV_NGA_2016_0759" title="LASV_NGA_2016_0759" href="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0759.ll1.cleaned.downsampled.dedup.mapped.coverage_plot.pdf" coords="1093,4,2012,764" shape="rect">
-    <area target="_top" alt="LASV_NGA_2016_0811" title="LASV_NGA_2016_0811" href="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0811.ll3.coverage_plot.pdf" coords="2043,4,3032,769" shape="rect">
-    <area target="_top" alt="LASV_NGA_2016_1423" title="LASV_NGA_2016_1423" href="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_1423.coverage_plot.pdf" coords="3050,9,4000,764" shape="rect">
-    <area target="_top" alt="LASV_NGA_2016_1547" title="LASV_NGA_2016_1547" href="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_1547.ll4.coverage_plot.pdf" coords="4026,1,4998,752" shape="rect">
-</map>
 
 ### Inspecting results from this walkthrough
 

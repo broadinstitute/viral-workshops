@@ -222,4 +222,6 @@ Utilizing *de novo* contigs instead of raw reads for detection provides more sta
 
 ## Other related resources
 
-- Ye, et al, Cell, 2019, *Benchmarking Metagenomics Tools for Taxonomic Classification* ([PMC6716367](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6716367/))
+See also:
+ - [https://github.com/cmavian/VEME_metagenomics](https://github.com/cmavian/VEME_metagenomics)
+ - Ye, et al, Cell, 2019, *Benchmarking Metagenomics Tools for Taxonomic Classification* ([PMC6716367](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6716367/))

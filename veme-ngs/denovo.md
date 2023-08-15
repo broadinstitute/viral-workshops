@@ -224,4 +224,3 @@ The columns shown or hidden for a data table can be configured by clicking the<i
 
 See also:
  - [https://github.com/taylorpaisie/VEME_2023_NGS_Denovo_assembly](https://github.com/taylorpaisie/VEME_2023_NGS_Denovo_assembly)
- - [https://github.com/cmavian/VEME_metagenomics](https://github.com/cmavian/VEME_metagenomics)

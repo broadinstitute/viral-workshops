@@ -47,6 +47,8 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 7. gap-filling
 8. Read-based polishing/refinement of draft genome
 
+<img src="" alt="de novo assembly overview diagram"/>
+
 ## Terra workspace
 
 For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023) in advance and loaded in the sequencing read data and required reference databases. 
@@ -70,12 +72,12 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 | **entity:de_novo_assembly_id** | **raw_reads_unaligned_bam** |
 |---|---|
-| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
-| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
-| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
-| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
-| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1423.bam |
-| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
+| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
+| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
+| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
+| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
+| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_1423.bam |
+| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/de_novo_assembly/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
 
 5. Ran the `deplete_only` workflow on all rows of the `de_novo_assembly` table, with:
   - `deplete_taxa.raw_reads_unmapped_bam` = `this.raw_reads_unaligned_bam`
@@ -158,7 +160,7 @@ Additionally, you can also click on the **JOB HISTORY** tab at the top of your w
 When the `assemble_denovo` workflow jobs have finished running, you can move on to evaluating the results.
 The job submission page for your submission under the Job History tab should look like this when the submissions are complete:
 
-<img width="80%" alt="image of job history" src=""/>
+<img width="80%" alt="image of job history" src="https://github.com/broadinstitute/viral-workshops/assets/53064/68eea307-7030-4cd2-8763-127f798e542f">
 
 Depending on some predictable and some unpredictable factors, the `assemble_denovo` jobs should complete within <20 minutes for input data of the sizes provided in this exercise.
 
@@ -169,6 +171,48 @@ it is easier to view the saved top level outputs in the data table—in this cas
 
 After the `assemble_denovo` jobs have completed, the `de_novo_assembly` table should have a number of additional output columns,
 including assembly coverage plots for viewing read depth across the genome, `.fasta` sequence files, various intermediate output files, and metrics such as `assembly_length_unambiguous` and `mean_coverage`.
+
+Among the many new columns, the following contain the outputs of the `assemble_denovo` workflow that are worth inspecting first:
+ - `final_assembly_fasta` — contains sequence(s) assembled from the input reads (up to one per segment). The sequence(s) may contain ambiguous bases (`N`s) in regions of the genome lacking adequate read depth. All bases present represent coverage by actual reads and not bases imputed from references.
+ - `aligned_bam` — contains reads mapped to the sequence of the final assembly ("mapped to self"), in [bam format](https://samtools.github.io/hts-specs/SAMv1.pdf).
+ - `coverage_plot` - visualizes read depth as a function of genome location. Peaks indicate regions of high coverage; few reads mapped in regions with values near zero
+ - `assembly_length` — the number of bases between the start and end position of the assembled sequence(s); this includes both known bases _and_ **ambiguous** bases (`N`s), and is not representative of the overall success of the assembly process
+ - `assembly_length_unambiguous` — the number of distinct positions in the final assemgbly with unambigious bases (i.e. where the bases are known and not `N`). For a complete assembly, `assembly_length_unambiguous` will be close in value to the length of a known reference genome
+ - `mean_coverage` — the number of reads mapped to the assembly, divided by the number of unambiguous bases
+
+The metrics for the assemblies should be similar to those in the following table:
+
+| entity:de_novo_assembly_id | assembly_length | assembly_length_unambiguous | mean_coverage      |
+|----------------------------|-----------------|-----------------------------|--------------------|
+| LASV_NGA_2016_0409         | 9056            | 5292                        | 55.897968197879855 |
+| LASV_NGA_2016_0668         |                 |                             |                    |
+| LASV_NGA_2016_0759         | 10551           | 10428                       | 161.0294758790636  |
+| LASV_NGA_2016_0811         | 8334            | 2717                        | 1.8178545716342693 |
+| LASV_NGA_2016_1423         | 10588           | 10588                       | 3051.3962032489612 |
+| LASV_NGA_2016_1547         | 9289            | 5363                        | 5.262568629561847  |
+
+Near-complete assemblies were produced for two samples, LASV_NGA_2016_1423 and LASV_NGA_2016_0759. Two produced partial assemblies, LASV_NGA_2016_0409 and LASV_NGA_2016_1547.
+The remaining did not yield usable assemblies, though one, LASV_NGA_2016_0811, did have low-depth partial coverage across the genome.
+
+Plots illustrating coverage depth for the assemblies are now available in PDF files listed in the `coverage_plot` column, and included here for reference:
+ - [LASV_NGA_2016_0409](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0409.ll2.coverage_plot.pdf)
+ - [LASV_NGA_2016_0759](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0759.ll1.cleaned.downsampled.dedup.mapped.coverage_plot.pdf)
+ - [LASV_NGA_2016_0811](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_0811.ll3.coverage_plot.pdf)
+ - [LASV_NGA_2016_1423](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_1423.coverage_plot.pdf)
+ - [LASV_NGA_2016_1547](https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/LASV_NGA_2016_1547.ll4.coverage_plot.pdf)
+
+The two colors shown each plot correspond to the two segments of the LASV genome (L, and S, respectively).
+
+<img width="80%" alt="assembly coverage plot overview" src="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/de_novo_coverage_plots/coverage_overview.png">
+
+### Inspecting results from this walkthrough
+
+Recall that when the `assemble_denovo` workflow was configured, the `min_unambig` parameter was set to `0.8`. 
+That value limits successful assemblies to those with ≥80% of bases known (i.e. not `N`).
+Lowering the `min_unambig` threshold will make the assembly process more permissive in the assemblies deemed "successful."
+
+Try lowering `min_unambig` based on the "failing" jobs observed during the first set of assembly jobs, and compare the resulting assemblies.
+
 
 The columns shown or hidden for a data table can be configured by clicking the<img width="26" display="inline" style="top:0.4em;position:relative;" alt="column settings gear icon" src="https://github.com/broadinstitute/viral-workshops/assets/53064/d5123eb3-ccd3-4a9d-8a2a-4ef62ae9bd65">**SETTINGS** button above the table and selecting columns as desired.
 

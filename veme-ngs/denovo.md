@@ -41,6 +41,8 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 7. gap-filling
 8. Read-based polishing/refinement of draft genome
 
+<img src="" alt="de novo assembly overview diagram"/>
+
 ## Terra workspace
 
 For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023) in advance and loaded in the sequencing read data and required reference databases. 
@@ -163,6 +165,23 @@ it is easier to view the saved top level outputs in the data table—in this cas
 
 After the `assemble_denovo` jobs have completed, the `de_novo_assembly` table should have a number of additional output columns,
 including assembly coverage plots for viewing read depth across the genome, `.fasta` sequence files, various intermediate output files, and metrics such as `assembly_length_unambiguous` and `mean_coverage`.
+
+Among the many new columns, the following contain the outputs of the `assemble_denovo` workflow that are worth inspecting first:
+ - `final_assembly_fasta` — contains sequence(s) assembled from the input reads (up to one per segment). The sequence(s) may contain ambiguous bases (`N`s) in regions of the genome lacking adequate read depth. All bases present represent coverage by actual reads and not bases imputed from references.
+ - `aligned_bam` — contains reads mapped to the sequence of the final assembly ("mapped to self"), in [bam format](https://samtools.github.io/hts-specs/SAMv1.pdf).
+ - `coverage_plot` - visualizes read depth as a function of genome location. Peaks indicate regions of high coverage; few reads mapped in regions with values near zero
+ - `assembly_length` — the number of bases between the start and end position of the assembled sequence(s); this includes both known bases _and_ **ambiguous** bases (`N`s), and is not representative of the overall success of the assembly process
+ - `assembly_length_unambiguous` — the number of distinct positions in the final assemgbly with unambigious bases (i.e. where the bases are known and not `N`). For a complete assembly, `assembly_length_unambiguous` will be close in value to the length of a known reference genome
+ - `mean_coverage` — the number of reads mapped to the assembly, divided by the number of unambiguous bases
+
+### Inspecting results from this walkthrough
+
+Recall that when the `assemble_denovo` workflow was configured, the `min_unambig` parameter was set to `0.8`. 
+That value limits successful assemblies to those with ≥80% of bases known (i.e. not `N`).
+Lowering the `min_unambig` threshold will make the assembly process more permissive in the assemblies deemed "successful."
+
+Try lowering `min_unambig` based on the "failing" jobs observed during the first set of assembly jobs, and compare the resulting assemblies.
+
 
 The columns shown or hidden for a data table can be configured by clicking the<img width="26" display="inline" style="top:0.4em;position:relative;" alt="column settings gear icon" src="https://github.com/broadinstitute/viral-workshops/assets/53064/d5123eb3-ccd3-4a9d-8a2a-4ef62ae9bd65">**SETTINGS** button above the table and selecting columns as desired.
 

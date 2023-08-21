@@ -208,5 +208,5 @@ Below are what the outputs should look like for our four EBOV genomes. The x-axi
 ## Other related resources
 
 See also:
- - For CLI methods on the same data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_NGS_Variant_Calling/)
+ - For CLI methods on the same data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_2023_NGS_Variant_Calling/)
  - The [TheiaCoV workflows for viral genomics](https://public-health-viral-genomics-theiagen.readthedocs.io/en/latest/overview.html) are highly popular in public health labs and come with a lot of documentation, training, and support. This is the recommended starting point for the most common microbial genomics analysis needs. The reference-based analysis workflows work well for a large range of viral taxa (they also have bacterial and eukaryotic workflows) and accept inputs for paired and single end Illumina data as well as ONT and ClearLabs data. They do not currently have a *de novo* assembly workflow, so this training utilizes the Broad Institute's *de novo* workflows instead.

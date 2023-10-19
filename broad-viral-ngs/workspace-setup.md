@@ -81,6 +81,8 @@ A cell in one table can reference one or more rows in another table[^6]; for exa
 First, add few common fields to the Workspace Data table from the TSV file provided:
 Navigate to the **Data** tab of the workspace, click **Workspace Data**, and then drag and drop onto the browser (_upload TSV_) the file `tabular_inputs/workspace-attributes.tsv`
 
+**TO DO: screenshots and detailed description of how to fix the bugs with String Lists, specifically blastDbs, remove quotes and brackets but not commas**
+
 Copy the full bucket paths for the two reference genomes to the corresponding cells in the **Workspace Data** table:
  - `ref_RSV_A_fasta`: (path to: `ref-RSVA-KY654518.1.fasta` in workspace files)
  - `ref_RSV_B_fasta`: (path to: `reference_genomes/ref-RSVB-MZ516105.1.fasta` in workspace files)

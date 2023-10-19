@@ -20,6 +20,7 @@ The sample sheet must have the following required columns:
 
 | sample | barcode_1 | barcode_2 | library_id_per_sample |
 |--------|-----------|-----------|-----------------------|
+|        |           |           |                       |
 
  - `sample`: name of the sample, often a reference to the internal identifier for the original biological material
  - `barcode_1`: the [i7 index](https://support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/miseq/indexed-sequencing-overview-guide-15057455-08.pdf) for read 1 (dual-index paired-end sequencing, or single-index sequencing)
@@ -63,6 +64,7 @@ For amplicon sequencing, these values should be:
 
 | amplicon_set | control | spike_in | viral_ct | batch_lib |
 |--------------|---------|----------|----------|-----------|
+|              |         |          |          |           |
 
  - `amplicon_set`: the name and version of amplicon primers or primer set used (ex. `ARTICv3`)
  - `control`: only one valid value: `NTC` (otherwise left blank)

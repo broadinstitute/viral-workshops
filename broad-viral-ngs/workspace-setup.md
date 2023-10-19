@@ -109,9 +109,9 @@ flowchart LR
     classDef set_entity1 fill:red,color:#fff,stroke:red,stroke-width:2px
     classDef set_entity2 fill:yellow,color:#000,stroke:yellow,stroke-width:2px
     classDef set_entity3 fill:blue,color:#fff,stroke:blue,stroke-width:2px
-    classDef set_entity4 fill:#888,color:#fff,stroke:#333,stroke-width:2px
-    classDef set_entity5 fill:#666,color:#fff,stroke:#333,stroke-width:2px
-    classDef set_entity6 fill:#444,color:#fff,stroke:#333,stroke-width:2px
+    classDef set_entity4 fill:#888,color:#fff,stroke:#888,stroke-width:2px
+    classDef set_entity5 fill:#666,color:#fff,stroke:#666,stroke-width:2px
+    classDef set_entity6 fill:#444,color:#fff,stroke:#444,stroke-width:2px
     
     classDef entity1 stroke:red,color:#000,fill:#fff,stroke-width:3px
     classDef entity2 stroke:yellow,color:#000,fill:#fff,stroke-width:3px

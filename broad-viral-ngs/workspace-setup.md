@@ -94,7 +94,7 @@ flowchart LR
     flowcell3-->sample5.l1:::entity5
     flowcell3-->sample6.l1:::entity6
     end
-    subgraph sample_set
+    subgraph sample
     sample1.l1-->sample1:::set_entity1
     sample1.l2-->sample1:::set_entity1
     sample2.l1-->sample2:::set_entity2
@@ -122,7 +122,8 @@ flowchart LR
     classDef entity6 stroke:#444,color:#000,fill:#fff,stroke-width:3px
     style flowcell fill:#eee,stroke:#333,stroke-width:0px
     style library fill:#eee,stroke:#333,stroke-width:0px
-    style sample_set fill:#eee,stroke:#333,stroke-width:0px
+    style sample fill:#eee,stroke:#333,stroke-width:0px
+
 ```
 
 [^5]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.

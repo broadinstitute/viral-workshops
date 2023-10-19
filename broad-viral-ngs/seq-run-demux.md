@@ -76,8 +76,8 @@ In the **Data** tab, click **Files** on the left-hand pane. If a folder called `
 
 Click the `flowcell` table in the left-hand pane. Find the column called `samplesheets`, hover over the cell, and click the pencil icon to edit the samplesheet value(s) for the row present. In each of the four list entries, paste and replace the placeholder values with the full path copied in the previous step.
 
-[^1] A software-focused text editor is recommended for editing sample sheets, such as [Visual Studio Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/). The [bio-utils](https://marketplace.visualstudio.com/items?itemName=teselagen.vscode-bio-utils) (VSCode) or ["ACTG"](https://packagecontrol.io/packages/ACTG) (Sublime Text) add-ons may be helpful for viewing and manipulating index sequences. The [rainbow_csv](https://packagecontrol.io/packages/rainbow_csv) package (Sublime Text) enhances display of TSV files.
-[^2] The `samplesheets/` folder is used here to ease organization. The sample sheet files can be stored elsewhere as long as their full file paths are listed correctly in the table row(s) used as input for demultiplexing.
+[^1]: A software-focused text editor is recommended for editing sample sheets, such as [Visual Studio Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/). The [bio-utils](https://marketplace.visualstudio.com/items?itemName=teselagen.vscode-bio-utils) (VSCode) or ["ACTG"](https://packagecontrol.io/packages/ACTG) (Sublime Text) add-ons may be helpful for viewing and manipulating index sequences. The [rainbow_csv](https://packagecontrol.io/packages/rainbow_csv) package (Sublime Text) enhances display of TSV files.
+[^2]: The `samplesheets/` folder is used here to ease organization. The sample sheet files can be stored elsewhere as long as their full file paths are listed correctly in the table row(s) used as input for demultiplexing.
 
 ## Import the _demux\_deplete_ workflow
 

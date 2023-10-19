@@ -34,15 +34,15 @@ Workspaces are a good way to scope data by project, and each is associated with 
 1. Navigate to view the list of workspaces you can access: [https://app.terra.bio/#workspaces](https://app.terra.bio/#workspaces).
 2. Click the "+" icon<!-- ![plus icon](path/to/image.png) --> to start configuring a new workspace.
 3. Enter a unique workspace name, and optionally a description.
-4. Select a billing project (`pathogen-genomic-surveillance`)[^2].
-5. After selecting a billing project, a few more input fields will appear. Leave **Bucket location** set to its default value. **_DO NOT_** select "**Workspace will have protected data**". **_DO NOT_** select any value for the "**Authorization domain**"[^3].
+4. Select a billing project (`pathogen-genomic-surveillance`).
+5. After selecting a billing project, a few more input fields will appear. Leave **Bucket location** set to its default value. **_DO NOT_** select "**Workspace will have protected data**". **_DO NOT_** select any value for the "**Authorization domain**"[^2].
 6. Click "**Create workspace**"; you will be redirected to the main dashboard for the newly-created workspace.
 
-[^3]: **_Do not_** select an **Authorization Domain**; doing so will complicate access and sharing of workspace data.
+[^2]: **_Do not_** select an **Authorization Domain**; doing so will complicate access and sharing of workspace data.
 
 ### Selecting Microsoft Azure as the cloud backend for a Terra workspace
 
-[^2]: Workspaces, their data, and stored output from compute jobs exist on either Google Compute Platform or Microsoft Azure. Each billing project is associated with a particular cloud backend. The cloud backend used for a workspace is specified based on the billing project selected when creating a new workspace, and it cannot be changed for an existing workspace. 
+Workspaces, their data, and stored output from compute jobs exist on either Google Compute Platform or Microsoft Azure. Each billing project is associated with a particular cloud backend. The cloud backend used for a workspace is specified based on the billing project selected when creating a new workspace, and it cannot be changed for an existing workspace. 
 
 ## Organizing data in Terra
 
@@ -50,10 +50,10 @@ Within a workspace, data are organized into files and tables.
 
 ### File data
 
-Each workspace created in Terra has its own cloud bucket[^4] for storing file data. Paths to these files can be stored in data tables and used as workflow inputs. File outputs from compute jobs are stored in the same workspace bucket.
+Each workspace created in Terra has its own cloud bucket[^3] for storing file data. Paths to these files can be stored in data tables and used as workflow inputs. File outputs from compute jobs are stored in the same workspace bucket.
 Access to the file data of a workspace is controlled according to the sharing settings of the workspace as a while.
 
-Compute jobs can also use data stored in external buckets, provided the user's [proxy account](https://support.terra.bio/hc/en-us/articles/360031023592) has read access to the data[^5].
+Compute jobs can also use data stored in external buckets, provided the user's [proxy account](https://support.terra.bio/hc/en-us/articles/360031023592) has read access to the data[^4].
 
 Data can be transferred to or from a workspace bucket using a web browser, or from the command line via the `gsutil` or [`gcloud storage`](https://cloud.google.com/sdk/docs/install) CLI (Google Cloud Platform).
 
@@ -61,8 +61,8 @@ Upload the files provided to the workspace:
  - `reference_genomes/ref-RSVA-KY654518.1.fasta`
  - `reference_genomes/ref-RSVB-MZ516105.1.fasta`
 
-[^4]: File data are stored in [_Blob Storage_](https://azure.microsoft.com/en-us/products/storage/blobs) on Microsoft Azure.
-[^5]: The identifier for a user's proxy account—formatted as an e-mail address—can be found on the Terra [Profile Information page](https://app.terra.bio/#profile).
+[^3]: File data are stored in [_Blob Storage_](https://azure.microsoft.com/en-us/products/storage/blobs) on Microsoft Azure.
+[^4]: The identifier for a user's proxy account—formatted as an e-mail address—can be found on the Terra [Profile Information page](https://app.terra.bio/#profile).
 
 ### Tabular data
 There are two main types of table:
@@ -71,10 +71,11 @@ There are two main types of table:
 The values in the rows in these tables can be used as input for compute jobs, and also store the corresponding _output_ from the same compute jobs.
 When a compute workflow is configured, it can use data from an individual table as input, and execute multiple jobs in parallel, one per row selected from the chosen table. 
 When each job finishes, its output will be stored in columns of the same row that was used as input for the job.
-Each workspace can have multiple tables, to aid organization, and also to describe _relationships_ between rows in different tables[^4].
-A cell in one table can reference one or more rows in another table[^6]; for example, a table representing samples may list rows with sample names, and have a column that references one or more sequencing libraries for each sample, with the actual data for each sequencing library stored in a second table.
+Each workspace can have multiple tables, to aid organization, and also to describe _relationships_ between rows in different tables[^5].
 
-[^6]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
+A cell in one table can reference one or more rows in another table; for example, a table representing samples may list rows with sample names, and have a column that references one or more sequencing libraries for each sample, with the actual data for each sequencing library stored in a second table.
+
+[^5]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
 
 #### Adding common Workspace Data
 

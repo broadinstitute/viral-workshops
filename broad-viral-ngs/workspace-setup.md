@@ -23,7 +23,7 @@ Terra is tested using and intended to be accessed with the [Google Chrome browse
 
 <!-- ![Alt text](path/to/image.png) -->
 
-[^1] Pop-up blocking may need to be disabled in your browser if the authentication pop-up window does not appear after clicking "Sign In"
+[^1]: Pop-up blocking may need to be disabled in your browser if the authentication pop-up window does not appear after clicking "Sign In"
 
 ## Create a new workspace
 
@@ -32,17 +32,17 @@ In Terra, a workspace is a way of grouping together tabular data, compute jobs, 
 Workspaces are a good way to scope data by project, and each is associated with a billing project and a list of users or groups allowed to access the workspace data.
 
 1. Navigate to view the list of workspaces you can access: [https://app.terra.bio/#workspaces](https://app.terra.bio/#workspaces).
-2. Click the ![plus icon](path/to/image.png) to start configuring a new workspace.
+2. Click the "+" icon<!-- ![plus icon](path/to/image.png) --> to start configuring a new workspace.
 3. Enter a unique workspace name, and optionally a description.
 4. Select a billing project (`pathogen-genomic-surveillance`)[^2].
 5. After selecting a billing project, a few more input fields will appear. Leave **Bucket location** set to its default value. **_DO NOT_** select "**Workspace will have protected data**". **_DO NOT_** select any value for the "**Authorization domain**"[^3].
 6. Click "**Create workspace**"; you will be redirected to the main dashboard for the newly-created workspace.
 
-[^3] **_Do not_** select an **Authorization Domain**; doing so will complicate access and sharing of workspace data.
+[^3]: **_Do not_** select an **Authorization Domain**; doing so will complicate access and sharing of workspace data.
 
 ### Selecting Microsoft Azure as the cloud backend for a Terra workspace
 
-[^2] Workspaces, their data, and stored output from compute jobs exist on either Google Compute Platform or Microsoft Azure. Each billing project is associated with a particular cloud backend. The cloud backend used for a workspace is specified based on the billing project selected when creating a new workspace, and it cannot be changed for an existing workspace. 
+[^2]: Workspaces, their data, and stored output from compute jobs exist on either Google Compute Platform or Microsoft Azure. Each billing project is associated with a particular cloud backend. The cloud backend used for a workspace is specified based on the billing project selected when creating a new workspace, and it cannot be changed for an existing workspace. 
 
 ## Organizing data in Terra
 
@@ -61,8 +61,8 @@ Upload the files provided to the workspace:
  - `reference_genomes/ref-RSVA-KY654518.1.fasta`
  - `reference_genomes/ref-RSVB-MZ516105.1.fasta`
 
-[^4] File data are stored in [_Blob Storage_](https://azure.microsoft.com/en-us/products/storage/blobs) on Microsoft Azure.
-[^5] The identifier for a user's proxy account—formatted as an e-mail address—can be found on the Terra [Profile Information page](https://app.terra.bio/#profile).
+[^4]: File data are stored in [_Blob Storage_](https://azure.microsoft.com/en-us/products/storage/blobs) on Microsoft Azure.
+[^5]: The identifier for a user's proxy account—formatted as an e-mail address—can be found on the Terra [Profile Information page](https://app.terra.bio/#profile).
 
 ### Tabular data
 There are two main types of table:
@@ -74,7 +74,7 @@ When each job finishes, its output will be stored in columns of the same row tha
 Each workspace can have multiple tables, to aid organization, and also to describe _relationships_ between rows in different tables[^4].
 A cell in one table can reference one or more rows in another table[^6]; for example, a table representing samples may list rows with sample names, and have a column that references one or more sequencing libraries for each sample, with the actual data for each sequencing library stored in a second table.
 
-[^6] Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
+[^6]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
 
 #### Adding common Workspace Data
 
@@ -114,4 +114,4 @@ Click the `notebooks/` folder to view the content.
 
 Upload the `create_data_table_tsv.ipynb` file to `notebooks/`. The `*.ipynb` file will appear once fully uploaded.
 
-[^7] The **Analyses** tab only lists notebooks stored in the `notebooks/` folder; if the folder name does not match this exactly, the notebooks will not appear under **Analyses**.
+[^7]: The **Analyses** tab only lists notebooks stored in the `notebooks/` folder; if the folder name does not match this exactly, the notebooks will not appear under **Analyses**.

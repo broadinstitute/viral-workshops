@@ -76,8 +76,8 @@ In the **Data** tab, click **Files** on the left-hand pane. If a folder called `
 
 Click the `flowcell` table in the left-hand pane. Find the column called `samplesheets`, hover over the cell, and click the pencil icon to edit the samplesheet value(s) for the row present. In each of the four list entries, paste and replace the placeholder values with the full path copied in the previous step.
 
-[^1] A software-focused text editor is recommended for editing sample sheets, such as [Visual Studio Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/). The [bio-utils](https://marketplace.visualstudio.com/items?itemName=teselagen.vscode-bio-utils) (VSCode) or ["ACTG"](https://packagecontrol.io/packages/ACTG) (Sublime Text) add-ons may be helpful for viewing and manipulating index sequences. The [rainbow_csv](https://packagecontrol.io/packages/rainbow_csv) package (Sublime Text) enhances display of TSV files.
-[^2] The `samplesheets/` folder is used here to ease organization. The sample sheet files can be stored elsewhere as long as their full file paths are listed correctly in the table row(s) used as input for demultiplexing.
+[^1]: A software-focused text editor is recommended for editing sample sheets, such as [Visual Studio Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/). The [bio-utils](https://marketplace.visualstudio.com/items?itemName=teselagen.vscode-bio-utils) (VSCode) or ["ACTG"](https://packagecontrol.io/packages/ACTG) (Sublime Text) add-ons may be helpful for viewing and manipulating index sequences. The [rainbow_csv](https://packagecontrol.io/packages/rainbow_csv) package (Sublime Text) enhances display of TSV files.
+[^2]: The `samplesheets/` folder is used here to ease organization. The sample sheet files can be stored elsewhere as long as their full file paths are listed correctly in the table row(s) used as input for demultiplexing.
 
 ## Import the _demux\_deplete_ workflow
 
@@ -143,12 +143,23 @@ From the **Cell** menu of the embedded Jupyer environment, click **Run All**. Af
 
 ## Inspect the output of demultiplexing
 
-### Picard metrics
+If the input to demultiplexing is drawn from a row or rows in the `flowcell` table, outputs from demultiplexing will be added to the source row(s). This includes numeric metrics, file paths to files containing per-sample sequencing reads, and various metadata.
 
-### FastQC reports
+### Demultiplexing metrics
+
+The file listed in the `demux_metrics` column for a demultiplexed flowcell contains metrics from [picard's `IlluminaBasecallsToSam`](https://broadinstitute.github.io/picard/command-line-overview.html#IlluminaBasecallsToSam), including the number of reads per sample name. The metrics file also lists the sequencing indices associated with each sample in the sample sheet. A zero or near-zero read count for a given sample may indicate that the indices for the sample were incorrect in the sample sheet, and may need to be corrected prior to demultiplexing again. The field `demux_outlierBarcodes` lists a file with abundant indices which were not included in the sample sheet; it can be helpful to check this file for potential sample sheet corrections.
+
+### MultiQC reports
+
+The `multiqc_report_raw` and `multiqc_report_cleaned` columns list combined reports containing quality metrics from FastQC (and potentially other tools), for raw reads and human-depleted reads, respectively. These show base quality scores by position in the reads, quality as a function of flowcell location, and other metrics of read quality.
 
 ### Spike-in read counts for evaluating cross-talk or contamination between samples
 
+The `spikein_counts` column lists a file with a table listing counts of reads in each sample mapping to the known sequences of ERCC and SDSI synthetic controls. These controls are typically added ("spiked-in") each sample in a pool early in the library preparation process, with a distinct spike-in for each sample. In the ideal case, the `spikein_counts` report should list a moderate read account for only one spike-in for each sample. Should a sample have reads mapping to multiple synthetic controls, that could be an indication of cross-talk or contamination between samples, or "[index hopping](https://www.illumina.com/techniques/sequencing/ngs-library-prep/multiplexing/index-hopping.html)". 
+
 ### Data files
 
-Raw vs cleaned
+The (unmapped) sequence reads from _demux\_deplete_ used for subsequent analysis are contained in per-sample [`*.bam`](https://samtools.github.io/hts-specs/SAMv1.pdf) files:
+
+ - `raw_reads_unaligned_bams`: each file contains all reads for a sample that passed filtering based on overall base quality
+ - `cleaned_reads_unaligned_bams`: reads from `raw_reads_unaligned_bams` following removal (depletion) of reads mapping to the human genome, sequencing adapters, or common laboratory contaminants.

@@ -75,6 +75,56 @@ Each workspace can have multiple tables, to aid organization, and also to descri
 
 A cell in one table can reference one or more rows in another table; for example, a table representing samples may list rows with sample names, and have a column that references one or more sequencing libraries for each sample, with the actual data for each sequencing library stored in a second table.
 
+```mermaid
+%%{ init: { 'flowchart': { 'curve': 'basis' } } }%%
+flowchart LR
+    subgraph flowcell
+    flowcell1:::fc-nostroke
+    flowcell2:::fc-nostroke
+    flowcell3:::fc-nostroke
+    end
+    subgraph library
+    flowcell1-->sample1.l1:::entity1
+    flowcell1-->sample2.l1:::entity2
+    flowcell1-->sample3.l1:::entity3
+    flowcell2-->sample1.l2:::entity1
+    flowcell2-->sample2.l2:::entity2
+    flowcell2-->sample3.l2:::entity3
+    flowcell3-->sample4.l1:::entity4
+    flowcell3-->sample5.l1:::entity5
+    flowcell3-->sample6.l1:::entity6
+    end
+    subgraph sample_set
+    sample1.l1-->sample1:::set_entity1
+    sample1.l2-->sample1:::set_entity1
+    sample2.l1-->sample2:::set_entity2
+    sample2.l2-->sample2:::set_entity2
+    sample3.l1-->sample3:::set_entity3
+    sample3.l2-->sample3:::set_entity3
+    sample4.l1-->sample4:::set_entity4
+    sample5.l1-->sample5:::set_entity5
+    sample6.l1-->sample6:::set_entity6
+    end
+    classDef fc-nostroke fill:green, color:#fff, stroke-width:0px
+    classDef set_entity1 fill:red,color:#fff,stroke:red,stroke-width:2px
+    classDef set_entity2 fill:yellow,color:#000,stroke:yellow,stroke-width:2px
+    classDef set_entity3 fill:blue,color:#fff,stroke:blue,stroke-width:2px
+    classDef set_entity4 fill:#888,color:#fff,stroke:#333,stroke-width:2px
+    classDef set_entity5 fill:#666,color:#fff,stroke:#333,stroke-width:2px
+    classDef set_entity6 fill:#444,color:#fff,stroke:#333,stroke-width:2px
+    
+    classDef entity1 stroke:red,color:#000,fill:#fff,stroke-width:3px
+    classDef entity2 stroke:yellow,color:#000,fill:#fff,stroke-width:3px
+    classDef entity3 stroke:blue,color:#000,fill:#fff,stroke-width:3px
+
+    classDef entity4 stroke:#888,color:#000,fill:#fff,stroke-width:3px
+    classDef entity5 stroke:#666,color:#000,fill:#fff,stroke-width:3px
+    classDef entity6 stroke:#444,color:#000,fill:#fff,stroke-width:3px
+    style flowcell fill:#eee,stroke:#333,stroke-width:0px
+    style library fill:#eee,stroke:#333,stroke-width:0px
+    style sample_set fill:#eee,stroke:#333,stroke-width:0px
+```
+
 [^5]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
 
 #### Adding common Workspace Data

@@ -64,9 +64,6 @@ class TrainingUser(object):
         # and also store the original tearDown() function for eventual cleanup 
         self.sb.sbTearDown = self.sb.tearDown
         self.sb.tearDown = noop_tearDown
-        #self.sb._reuse_session=True
-        #self.sb=Driver(browser="chrome", headless=False, uc=True)
-        #self.undetectable = False
 
         self.username=None
 
@@ -103,8 +100,6 @@ class TrainingUser(object):
 
     def login_to_account(self, username, password):
         print(f"Logging in to user: {username}")
-
-        #print(dir(self.sb))
 
         self.username=username
 
@@ -160,13 +155,6 @@ class TrainingUser(object):
 
     def check_gmail_inbox(self):
         pass
-        # click "Get started" modal on "Welcome to Gmail screen"
-        # <button name="get_started" class="J-at1-auR">Get started</button>
-
-        # click "Next" a few times...
-        # <div rolerole="button" class="J-J5-Ji T-I T-I-JN T-I-JO T-I-Zf-aw2" tabindex="0" style="-webkit-user-select: none;">Next</div>
-        # <div role="button" class="J-J5-Ji T-I T-I-JN T-I-Zf-aw2" tabindex="0" style="-webkit-user-select: none;">Next</div>
-        # <div role="button" class="J-J5-Ji T-I T-I-JN T-I-Zf-aw2" tabindex="0" style="-webkit-user-select: none;">Done</div>
 
     
     def terra_oauth_flow(self):
@@ -200,7 +188,6 @@ class TrainingUser(object):
                 self.sb.click('button:contains("Sign in with Google")')
                 self.sb.sleep(3)
 
-                #while True:
                 try:
                     # Google sometimes but not always asks the user to pick an account to use
                     # even in an otherwise sandboxed session. Repeat OAuth logins often omit this step
@@ -275,7 +262,6 @@ class TrainingUser(object):
         else:
             print("user has NOT completed initial Terra registration")
             self.complete_terra_registration()
-            #return # ToDo: comment
 
     def delete_workspace(self, billing_project, workspace_id):
 
@@ -403,36 +389,32 @@ if __name__ == "__main__":
 
     # initial login to account to agree to ToS and change password
     for idx,(user_email,pw_old,pw_new) in enumerate(read_credentials(args.credentials_tsv)):
-        #if True: # idx==3:
-        if idx >= 29:
-        #if idx in [16]:
-            print(f"{idx}\t{user_email}\t{pw_old}\t{pw_new}")
-            
-            authed_user = TrainingUser(user_email, pw_old if args.change_password else pw_new)
+        print(f"{idx}\t{user_email}\t{pw_old}\t{pw_new}")
+        
+        authed_user = TrainingUser(user_email, pw_old if args.change_password else pw_new)
 
-            if args.change_password:
-                authed_user.change_password(pw_new, initial_password_change=True)
+        if args.change_password:
+            authed_user.change_password(pw_new, initial_password_change=True)
 
-            authed_user.login_to_terra()
+        authed_user.login_to_terra()
 
-            if args.delete_workspace!=None and len(args.delete_workspace)>0:
-                for workspace_url in args.delete_workspace:
-                    print(f"DELETING workspace_url: {workspace_url}")
+        if args.delete_workspace!=None and len(args.delete_workspace)>0:
+            for workspace_url in args.delete_workspace:
+                print(f"DELETING workspace_url: {workspace_url}")
 
-                    billing_project,workspace_id = parse_workspace_url(workspace_url)
-                    authed_user.delete_workspace(billing_project, workspace_id)
+                billing_project,workspace_id = parse_workspace_url(workspace_url)
+                authed_user.delete_workspace(billing_project, workspace_id)
 
-            if args.clone_workspace!=None and len(args.clone_workspace)>0:                
-                for workspace_url in args.clone_workspace:
-                    print(f"CLONING workspace_url: {workspace_url}")
+        if args.clone_workspace!=None and len(args.clone_workspace)>0:                
+            for workspace_url in args.clone_workspace:
+                print(f"CLONING workspace_url: {workspace_url}")
 
-                    billing_project,workspace_id = parse_workspace_url(workspace_url)
-                    authed_user.clone_workspace(billing_project, workspace_id)
+                billing_project,workspace_id = parse_workspace_url(workspace_url)
+                authed_user.clone_workspace(billing_project, workspace_id)
             
             
             authed_user.sb.sbTearDown()
-            
-            #break
+
             if args.change_password:
                 time.sleep(95)
             else:

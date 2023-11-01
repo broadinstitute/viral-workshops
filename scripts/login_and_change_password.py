@@ -6,14 +6,23 @@ import time
 import sys
 import csv
 import argparse
+import logging
+import random
+import functools
+import traceback
+
 from seleniumbase import SB#, Driver, page_actions
 from seleniumbase import BaseCase as SBBaseCase
 from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException
 
+
+LOG_FORMAT = "%(asctime)s - %(levelname)s - %(pathname)s - %(funcName)s - %(lineno)d -msg: %(message)s"
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
+
 #SBBaseCase.main(__name__, __file__)
 
 workspace_re = re.compile(r'https?:\/\/(?:\w+\.?)terra.bio\/\\?#workspaces\/(?P<billing_account>[\w\-_]+)\/(?P<workspace_id>[^\/]+)\/?.*')
-user_from_email_re = re.compile(r'(?P<user>[^@]+)@.*')
+user_from_email_re = re.compile(r'(?P<user>[^@]+)@?.*')
 
 workspace_url_prefix="https://app.terra.bio/#workspaces"
 
@@ -39,6 +48,33 @@ parser.add_argument('--delete_workspace',
                         default=None,
                         nargs='+',  
                         help="""If specified, workspaces specified will be deleted by the authenticated user. Workspaces must be entered as full Terra URIs. If workspaces are specified for cloning and deletion, the deletion will occur first""")
+
+def retry(retry_num, retry_sleep_sec):
+    """
+    retry help decorator.
+    :param retry_num: the retry num; retry sleep sec
+    :return: decorator
+    """
+    def decorator(func):
+        """decorator"""
+        # preserve information about the original function, or the func name will be "wrapper" not "func"
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            """wrapper"""
+            for attempt in range(retry_num):
+                try:
+                    return func(*args, **kwargs)  # should return the raw function's return value
+                except Exception as err:   # pylint: disable=broad-except
+                    logging.error(err)
+                    logging.error(traceback.format_exc())
+                    time.sleep(retry_sleep_sec)
+                logging.error("Trying attempt %s of %s.", attempt + 1, retry_num)
+            logging.error("func %s retry failed", func)
+            raise Exception('Exceed max retry num: {} failed'.format(retry_num))
+
+        return wrapper
+
+    return decorator
 
 class TrainingUser(object):
 
@@ -98,6 +134,7 @@ class TrainingUser(object):
             self.sb.sleep(1)
 
 
+    @retry(2, random.randint(65, 120))
     def login_to_account(self, username, password):
         print(f"Logging in to user: {username}")
 
@@ -107,10 +144,13 @@ class TrainingUser(object):
         self.sb.click('a[data-action="sign in"]')
         self.sb.type('input[type="email"]', f"{username}")
         self.sb.click('button:contains("Next")')
-        self.sb.sleep(5)
+        self.sb.wait_for_element_not_visible('input[type="email"]', by="css selector", timeout=75)
+        #self.sb.sleep(9)
+
         self.sb.type('input[type="password"]', password)
         self.sb.click('button:contains("Next")')
-        self.sb.sleep(2)
+        #self.sb.sleep(3)
+        self.sb.wait_for_element_not_visible('input[type="password"]', by="css selector", timeout=75)
 
         # ToS agreement selector
         tos_agree_button_selector='input[value="I understand"]'
@@ -119,7 +159,9 @@ class TrainingUser(object):
 
         #self.sb.click('button:contains("I understand")') #<input type="submit" class="MK9CEd MVpUfe" jsname="M2UYVd" jscontroller="rrJN5c" jsaction="aJAbCd:zbvklb" name="confirm" value="I understand" id="confirm">
 
-        self.sb.sleep(2)
+        self.sb.wait_for_element_not_visible('input[value="I understand"]', by="css selector", timeout=60)
+
+        #self.sb.sleep(2)
 
         self.logged_in_to_google=True
 
@@ -156,7 +198,7 @@ class TrainingUser(object):
     def check_gmail_inbox(self):
         pass
 
-    
+    @retry(3, random.randint(42, 93))
     def terra_oauth_flow(self):
         assert self.logged_in_to_google==True, "Terra login can only be performed following google authentication"
 
@@ -186,7 +228,7 @@ class TrainingUser(object):
                 
                 # selct SSO via Google OAuth
                 self.sb.click('button:contains("Sign in with Google")')
-                self.sb.sleep(3)
+                self.sb.sleep(4)
 
                 try:
                     # Google sometimes but not always asks the user to pick an account to use
@@ -218,13 +260,19 @@ class TrainingUser(object):
             # enter first and last "names" for user, 
             # selecting the relevant inputs based on what their labels say
             # (since the Terra element ID values change load-to-load and cannot be relied upon as selectors)
-            self.sb.type("//input[@id=//label[contains(.,'First Name')]/@for]", self.username)
-            self.sb.type("//input[@id=//label[contains(.,'Last Name')]/@for]", self.username)
+
+            username_from_email = user_from_email_re.search(self.username)['user']
+
+            self.sb.type("//input[@id=//label[contains(.,'First Name')]/@for]", username_from_email)
+            self.sb.type("//input[@id=//label[contains(.,'Last Name')]/@for]", username_from_email)
+            self.sb.type("//input[@id=//label[contains(.,'Organization')]/@for]", username_from_email)
+            self.sb.type("//input[@id=//label[contains(.,'Department')]/@for]", "n/a")
+            self.sb.type("//input[@id=//label[contains(.,'Title')]/@for]", "training account")
             self.sb.sleep(1)
             # Register the Terra account
             self.sb.click('//div[contains(.,"Register") and @role="button"]')
             #self.sb.click('div:contains("Register")')
-            self.sb.sleep(2)
+            #self.sb.sleep(2)
             # agree to the silly GDPR cookie banner
             #self.sb.click('div:contains("Agree")')
             self.sb.wait_for_element_not_visible('div:contains("Register")', by="css selector", timeout=60)
@@ -389,8 +437,11 @@ if __name__ == "__main__":
 
     # initial login to account to agree to ToS and change password
     for idx,(user_email,pw_old,pw_new) in enumerate(read_credentials(args.credentials_tsv)):
+        #if not idx>=66:
+        #    continue
+
         print(f"{idx}\t{user_email}\t{pw_old}\t{pw_new}")
-        
+
         authed_user = TrainingUser(user_email, pw_old if args.change_password else pw_new)
 
         if args.change_password:
@@ -413,9 +464,15 @@ if __name__ == "__main__":
                 authed_user.clone_workspace(billing_project, workspace_id)
             
             
-            authed_user.sb.sbTearDown()
+        authed_user.sb.sbTearDown()
 
-            if args.change_password:
-                time.sleep(95)
-            else:
-                time.sleep(3)
+        print(f"COMPLETE ({user_email})\n")
+        #break
+
+        #if idx >=1:
+        #    break
+
+        if args.change_password:
+            time.sleep(135)
+        else:
+            time.sleep(3)

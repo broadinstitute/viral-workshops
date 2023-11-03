@@ -34,15 +34,15 @@ Workspaces are a good way to scope data by project, and each is associated with 
 1. Navigate to view the list of workspaces you can access: [https://app.terra.bio/#workspaces](https://app.terra.bio/#workspaces).
 2. Click the "+" icon<!-- ![plus icon](path/to/image.png) --> to start configuring a new workspace.
 3. Enter a unique workspace name, and optionally a description.
-4. Select a billing project (`pathogen-genomic-surveillance`)[^2].
-5. After selecting a billing project, a few more input fields will appear. Leave **Bucket location** set to its default value. **_DO NOT_** select "**Workspace will have protected data**". **_DO NOT_** select any value for the "**Authorization domain**"[^3].
+4. Select a billing project (`pathogen-genomic-surveillance`).
+5. After selecting a billing project, a few more input fields will appear. Leave **Bucket location** set to its default value. **_DO NOT_** select "**Workspace will have protected data**". **_DO NOT_** select any value for the "**Authorization domain**"[^2].
 6. Click "**Create workspace**"; you will be redirected to the main dashboard for the newly-created workspace.
 
-[^3]: **_Do not_** select an **Authorization Domain**; doing so will complicate access and sharing of workspace data.
+[^2]: **_Do not_** select an **Authorization Domain**; doing so will complicate access and sharing of workspace data.
 
 ### Selecting Microsoft Azure as the cloud backend for a Terra workspace
 
-[^2]: Workspaces, their data, and stored output from compute jobs exist on either Google Compute Platform or Microsoft Azure. Each billing project is associated with a particular cloud backend. The cloud backend used for a workspace is specified based on the billing project selected when creating a new workspace, and it cannot be changed for an existing workspace. 
+Workspaces, their data, and stored output from compute jobs exist on either Google Compute Platform or Microsoft Azure. Each billing project is associated with a particular cloud backend. The cloud backend used for a workspace is specified based on the billing project selected when creating a new workspace, and it cannot be changed for an existing workspace. 
 
 ## Organizing data in Terra
 
@@ -50,10 +50,10 @@ Within a workspace, data are organized into files and tables.
 
 ### File data
 
-Each workspace created in Terra has its own cloud bucket[^4] for storing file data. Paths to these files can be stored in data tables and used as workflow inputs. File outputs from compute jobs are stored in the same workspace bucket.
+Each workspace created in Terra has its own cloud bucket[^3] for storing file data. Paths to these files can be stored in data tables and used as workflow inputs. File outputs from compute jobs are stored in the same workspace bucket.
 Access to the file data of a workspace is controlled according to the sharing settings of the workspace as a while.
 
-Compute jobs can also use data stored in external buckets, provided the user's [proxy account](https://support.terra.bio/hc/en-us/articles/360031023592) has read access to the data[^5].
+Compute jobs can also use data stored in external buckets, provided the user's [proxy account](https://support.terra.bio/hc/en-us/articles/360031023592) has read access to the data[^4].
 
 Data can be transferred to or from a workspace bucket using a web browser, or from the command line via the `gsutil` or [`gcloud storage`](https://cloud.google.com/sdk/docs/install) CLI (Google Cloud Platform).
 
@@ -61,8 +61,8 @@ Upload the files provided to the workspace:
  - `reference_genomes/ref-RSVA-KY654518.1.fasta`
  - `reference_genomes/ref-RSVB-MZ516105.1.fasta`
 
-[^4]: File data are stored in [_Blob Storage_](https://azure.microsoft.com/en-us/products/storage/blobs) on Microsoft Azure.
-[^5]: The identifier for a user's proxy account—formatted as an e-mail address—can be found on the Terra [Profile Information page](https://app.terra.bio/#profile).
+[^3]: File data are stored in [_Blob Storage_](https://azure.microsoft.com/en-us/products/storage/blobs) on Microsoft Azure.
+[^4]: The identifier for a user's proxy account—formatted as an e-mail address—can be found on the Terra [Profile Information page](https://app.terra.bio/#profile).
 
 ### Tabular data
 There are two main types of table:
@@ -71,10 +71,62 @@ There are two main types of table:
 The values in the rows in these tables can be used as input for compute jobs, and also store the corresponding _output_ from the same compute jobs.
 When a compute workflow is configured, it can use data from an individual table as input, and execute multiple jobs in parallel, one per row selected from the chosen table. 
 When each job finishes, its output will be stored in columns of the same row that was used as input for the job.
-Each workspace can have multiple tables, to aid organization, and also to describe _relationships_ between rows in different tables[^4].
-A cell in one table can reference one or more rows in another table[^6]; for example, a table representing samples may list rows with sample names, and have a column that references one or more sequencing libraries for each sample, with the actual data for each sequencing library stored in a second table.
+Each workspace can have multiple tables, to aid organization, and also to describe _relationships_ between rows in different tables[^5].
 
-[^6]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
+A cell in one table can reference one or more rows in another table; for example, a table representing samples may list rows with sample names, and have a column that references one or more sequencing libraries for each sample, with the actual data for each sequencing library stored in a second table.
+
+```mermaid
+%%{ init: { 'flowchart': { 'curve': 'basis' } } }%%
+flowchart LR
+    subgraph flowcell
+    flowcell1:::fc-nostroke
+    flowcell2:::fc-nostroke
+    flowcell3:::fc-nostroke
+    end
+    subgraph library
+    flowcell1-->sample1.l1:::entity1
+    flowcell1-->sample2.l1:::entity2
+    flowcell1-->sample3.l1:::entity3
+    flowcell2-->sample1.l2:::entity1
+    flowcell2-->sample2.l2:::entity2
+    flowcell2-->sample3.l2:::entity3
+    flowcell3-->sample4.l1:::entity4
+    flowcell3-->sample5.l1:::entity5
+    flowcell3-->sample6.l1:::entity6
+    end
+    subgraph sample
+    sample1.l1-->sample1:::set_entity1
+    sample1.l2-->sample1:::set_entity1
+    sample2.l1-->sample2:::set_entity2
+    sample2.l2-->sample2:::set_entity2
+    sample3.l1-->sample3:::set_entity3
+    sample3.l2-->sample3:::set_entity3
+    sample4.l1-->sample4:::set_entity4
+    sample5.l1-->sample5:::set_entity5
+    sample6.l1-->sample6:::set_entity6
+    end
+    classDef fc-nostroke fill:green, color:#fff, stroke-width:0px
+    classDef set_entity1 fill:red,color:#fff,stroke:red,stroke-width:2px
+    classDef set_entity2 fill:yellow,color:#000,stroke:yellow,stroke-width:2px
+    classDef set_entity3 fill:blue,color:#fff,stroke:blue,stroke-width:2px
+    classDef set_entity4 fill:#888,color:#fff,stroke:#888,stroke-width:2px
+    classDef set_entity5 fill:#666,color:#fff,stroke:#666,stroke-width:2px
+    classDef set_entity6 fill:#444,color:#fff,stroke:#444,stroke-width:2px
+    
+    classDef entity1 stroke:red,color:#000,fill:#fff,stroke-width:3px
+    classDef entity2 stroke:yellow,color:#000,fill:#fff,stroke-width:3px
+    classDef entity3 stroke:blue,color:#000,fill:#fff,stroke-width:3px
+
+    classDef entity4 stroke:#888,color:#000,fill:#fff,stroke-width:3px
+    classDef entity5 stroke:#666,color:#000,fill:#fff,stroke-width:3px
+    classDef entity6 stroke:#444,color:#000,fill:#fff,stroke-width:3px
+    style flowcell fill:#eee,stroke:#333,stroke-width:0px
+    style library fill:#eee,stroke:#333,stroke-width:0px
+    style sample fill:#eee,stroke:#333,stroke-width:0px
+
+```
+
+[^5]: Internally, Terra stores data in a relational database and conceptualizes one-to-one, one-to-many, and many-to-many relationships similarly.
 
 #### Adding common Workspace Data
 

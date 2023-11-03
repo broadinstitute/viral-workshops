@@ -10,7 +10,8 @@ const config = {
         }
 };
 mermaid.initialize(config);
-document.addEventListener("load", function(){
+
+window.addEventListener("load", function(){
     window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
 });
 </script>

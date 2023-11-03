@@ -1,0 +1,15 @@
+{%- if content contains 'mermaid' -%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.0/mermaid.min.js" integrity="sha512-k2pUHPrumFIAa/V5nPMHyMbPLHCcScLAy81auDWertydzcBk8nN/lrEz15LeJEzpxpzE7NPhRuKbWrGJ7b/ASA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+const config = {
+    startOnLoad:true,
+    theme: 'forest',
+    flowchart: {
+        useMaxWidth:false,
+        htmlLabels:true
+        }
+};
+mermaid.initialize(config);
+window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+{% endif %}

@@ -184,10 +184,10 @@ The metrics for the assemblies should be similar to those in the following table
 
 | entity:de_novo_assembly_id | assembly_length | assembly_length_unambiguous | mean_coverage      |
 |----------------------------|-----------------|-----------------------------|--------------------|
-| LASV_NGA_2016_0409         | 9056            | 5292                        | 55.897968197879855 |
+| LASV_NGA_2016_0409         |                 |                             |                    |
 | LASV_NGA_2016_0668         |                 |                             |                    |
 | LASV_NGA_2016_0759         | 10551           | 10428                       | 161.0294758790636  |
-| LASV_NGA_2016_0811         | 8334            | 2717                        | 1.8178545716342693 |
+| LASV_NGA_2016_0811         |                 |                             |                    |
 | LASV_NGA_2016_1423         | 10588           | 10588                       | 3051.3962032489612 |
 | LASV_NGA_2016_1547         | 9289            | 5363                        | 5.262568629561847  |
 

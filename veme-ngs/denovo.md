@@ -47,7 +47,7 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 7. gap-filling
 8. Read-based polishing/refinement of draft genome
 
-<img src="" alt="de novo assembly overview diagram"/>
+<img width="70%" alt="de novo assembly overview diagram" src="https://github.com/broadinstitute/viral-workshops/blob/main/veme-ngs/vial-ngs_de-novo_assembly_diagram.png"/>
 
 ## Terra workspace
 

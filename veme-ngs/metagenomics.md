@@ -42,10 +42,10 @@ data set, what we did to populate these workspaces was:
 
 | entity:metagenomics_id | sample | fastq1 | k2_db |
 | --- | --- | --- | --- |
-| LongBoat-PlusPF | LongBoat | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| Palmetto-PlusPF | Palmetto | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
-| LongBoat-MiniK2 | LongBoat | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
-| Palmetto-MiniK2 | Palmetto | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
+| LongBoat-PlusPF | LongBoat | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
+| Palmetto-PlusPF | Palmetto | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst |
+| LongBoat-MiniK2 | LongBoat | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/input_data/metagenomics/Longboat-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
+| Palmetto-MiniK2 | Palmetto | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
 
 4. Ran the `fastq_to_ubam` workflow on all rows of the `metagenomics` table, with `platform_name` = "ILLUMINA",
 `library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
@@ -223,5 +223,5 @@ Utilizing *de novo* contigs instead of raw reads for detection provides more sta
 ## Other related resources
 
 See also:
- - For CLI methods on the same data set for this workshop, see [Carla Mavian's VEME notes](https://cmavian.github.io/VEME_metagenomics)
+ - For CLI methods on the same data set for this workshop, see [Carla Mavian's VEME notes](https://github.com/cmavian/VEME-metagenomics-2024)
  - Ye, et al, Cell, 2019, *Benchmarking Metagenomics Tools for Taxonomic Classification* ([PMC6716367](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6716367/))

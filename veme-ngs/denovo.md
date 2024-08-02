@@ -51,19 +51,19 @@ Briefly, the `assemble_denovo` pipeline consists of the following steps:
 
 ## Terra workspace
 
-For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS%202023) in advance and loaded in the sequencing read data and required reference databases. 
+For this exercise, we have created a [Terra workspace](https://app.terra.bio/#workspaces/veme-training/VEME%20NGS) in advance and loaded in the sequencing read data and required reference databases. 
 If you are starting from scratch on a new data set, what we did to populate these workspaces was:
 
 1. Imported the following workflows from the Broad Institute Viral Genomics
 [Dockstore collection](https://dockstore.org/organizations/BroadInstitute/collections/pgs):
 `deplete_only`, `downsample`, and `assemble_denovo`.
 2. Copied six `.bam` files from the workshop data folder to the Terra workspace bucket `raw_read_data/` subdirectory:
-  - `LASV_NGA_2016_0409.ll2.cleaned.bam`
-  - `LASV_NGA_2016_0668.ll4.cleaned.bam`
-  - `LASV_NGA_2016_0759.ll1.cleaned.bam`
-  - `LASV_NGA_2016_0811.ll3.cleaned.bam`
-  - `LASV_NGA_2016_1423.cleaned.bam`
-  - `LASV_NGA_2016_1547.ll4.cleaned.bam`
+  - `LASV_NGA_2016_0409.ll2.bam`
+  - `LASV_NGA_2016_0668.ll4.bam`
+  - `LASV_NGA_2016_0759.ll1.bam`
+  - `LASV_NGA_2016_0811.ll3.bam`
+  - `LASV_NGA_2016_1423.bam`
+  - `LASV_NGA_2016_1547.ll4.bam`
 3. Copied geographically and temporally relevant reference genomes from the workshop data folder to the Terra workspace bucket `references/LASV` subdirectory:
   - `ref-lasv-BNI_Nig08_A19.fasta`
   - `ref-lasv-ISTH2376.fasta`
@@ -72,12 +72,12 @@ If you are starting from scratch on a new data set, what we did to populate thes
 
 | **entity:de_novo_assembly_id** | **raw_reads_unaligned_bam** |
 |---|---|
-| LASV_NGA_2016_0409 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
-| LASV_NGA_2016_0668 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
-| LASV_NGA_2016_0759 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
-| LASV_NGA_2016_0811 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
-| LASV_NGA_2016_1423 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1423.bam |
-| LASV_NGA_2016_1547 | gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
+| LASV_NGA_2016_0409 | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/raw_read_data/LASV_NGA_2016_0409.ll2.bam |
+| LASV_NGA_2016_0668 | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/raw_read_data/LASV_NGA_2016_0668.ll4.bam |
+| LASV_NGA_2016_0759 | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/raw_read_data/LASV_NGA_2016_0759.ll1.bam |
+| LASV_NGA_2016_0811 | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/raw_read_data/LASV_NGA_2016_0811.ll3.bam |
+| LASV_NGA_2016_1423 | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/raw_read_data/LASV_NGA_2016_1423.bam |
+| LASV_NGA_2016_1547 | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/raw_read_data/LASV_NGA_2016_1547.ll4.bam |
 
 5. Ran the `deplete_only` workflow on all rows of the `de_novo_assembly` table, with:
   - `deplete_taxa.raw_reads_unmapped_bam` = `this.raw_reads_unaligned_bam`
@@ -91,7 +91,7 @@ If you are starting from scratch on a new data set, what we did to populate thes
 8. Added the following rows to the Workspace Data table:
   - `workspace.blastDbs` = `gs://pathogen-public-dbs/v0/GRCh37.68_ncRNA.fasta.zst, gs://pathogen-public-dbs/v0/hybsel_probe_adapters.fasta` (string list)
   - `workspace.bwaDbs` = `gs://pathogen-public-dbs/v0/hg19.bwa_idx.tar.zst`
-  - `workspace.lasv_reference_scaffold_genomes` = `gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-BNI_Nig08_A19.fasta, gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-ISTH2376.fasta, gs://fc-d3199a88-7e13-433f-b77d-f62ef308d168/references/LASV/ref-lasv-KGH_G502.fasta` (string list)
+  - `workspace.lasv_reference_scaffold_genomes` = `gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/references/LASV/ref-lasv-BNI_Nig08_A19.fasta, gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/references/LASV/ref-lasv-ISTH2376.fasta, gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/references/LASV/ref-lasv-KGH_G502.fasta` (string list)
   - `workspace.spikein_db` = `gs://pathogen-public-dbs/v0/ERCC_96_nopolyA.fasta`
   - `workspace.trim_clip_db` = `gs://pathogen-public-dbs/v0/contaminants.clip_db.fasta`
 
@@ -223,4 +223,4 @@ The columns shown or hidden for a data table can be configured by clicking the<i
 ## Other related resources
 
 See also:
- - For CLI methods on a similar data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_2023_NGS_Denovo_assembly)
+ - For CLI methods on a similar data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_2024_NGS_Denovo_Assembly)

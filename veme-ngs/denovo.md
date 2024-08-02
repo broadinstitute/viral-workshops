@@ -120,7 +120,7 @@ Make sure to set the following:
   - `assemble_denovo.reads_unmapped_bams` (required) should be set to `this.cleaned_bam`
   - `assemble_denovo.reference_genome_fasta` (required) should be set to `workspace.lasv_reference_scaffold_genomes`
   - `assemble_denovo.trim_clip_db` (required) should be set to `workspace.trim_clip_db`
-  - `scaffold.min_unambig` should be set to `0.8`; this corresponds to the fraction of the genome that must be covered by unambiguous bases (i.e. not `N`s) for a successful assembly.
+  - `scaffold.min_unambig` should be set to `0.8`; this corresponds to the fraction of the _scaffold_ genome that must be covered by unambiguous bases (i.e. not `N`s) for the resulting refined assembly to be considered successful
 - Click the **SAVE** button after you've set all the inputs.
 
 The resulting workflow launch page should look like this when you are ready:

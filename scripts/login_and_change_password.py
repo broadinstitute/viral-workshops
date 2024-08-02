@@ -152,6 +152,8 @@ class TrainingUser(object):
         #self.sb.sleep(3)
         self.sb.wait_for_element_not_visible('input[type="password"]', by="css selector", timeout=75)
 
+        self.sb.sleep(1)
+
         # ToS agreement selector
         tos_agree_button_selector='input[value="I understand"]'
         if self.sb.is_element_present(tos_agree_button_selector, by="css selector"):
@@ -237,7 +239,14 @@ class TrainingUser(object):
                     # If presented with the user's account, click it.
                     if self.sb.is_element_present(f'div[data-identifier="{self.username}"]', by="css selector"):
                         self.sb.click(f'div[data-identifier="{self.username}"]')
-                        self.sb.sleep(7)
+                        self.sb.sleep(6)
+
+                    # if the OAuth prompt asks for consent to share info with Terra and continue
+                    continue_button_selector=f'button:contains("Continue")'
+                    if self.sb.is_element_present(continue_button_selector, by="css selector"):
+                        self.sb.click(continue_button_selector)
+                        self.sb.sleep(4)
+
                     #break
                 # selenium will throw an error checking for the username because the window will close
                 # in the no-account-selection case before selenium can inspect it
@@ -249,7 +258,7 @@ class TrainingUser(object):
         # when the OAuth pop-up closed
         self.sb.switch_to_window(main_window)
         
-        self.sb.sleep(5)
+        self.sb.sleep(3)
         self.hide_annoyances()
 
     def complete_terra_registration(self):
@@ -268,9 +277,37 @@ class TrainingUser(object):
             self.sb.type("//input[@id=//label[contains(.,'Organization')]/@for]", username_from_email)
             self.sb.type("//input[@id=//label[contains(.,'Department')]/@for]", "n/a")
             self.sb.type("//input[@id=//label[contains(.,'Title')]/@for]", "training account")
+            #self.sb.sleep(1)
+
+            # Terra requires users to actually open the ToS prior to agreeing
+            self.sb.scroll_into_view('div:contains("Read Terra Platform Terms of Service here")', by="css selector", timeout=None)
+            self.sb.sleep(1)
+            self.sb.click('//div[contains(.,"Read Terra Platform Terms of Service here") and @role="button"]')
+            
+            # wait for ToS modal to load
+            self.sb.sleep(2)
+            self.sb.scroll_into_view('div:contains("OK")', by="css selector", timeout=None)
+            # agree to ToS so modal closes
+            self.sb.click('//div[contains(.,"OK") and @role="button"]')
+            self.sb.sleep(1)
+
+            # check the various boxes
+            consent_checkbox_selectors=['span[aria-label="Marketing communications including notifications for upcoming workshops and new flagship dataset additions"]',
+                                        'span[aria-label="By checking this box, you are agreeing to the Terra Terms of Service"]']
+
+            for consent_checkbox_selector in consent_checkbox_selectors:
+                if self.sb.is_element_visible(consent_checkbox_selector, by="css selector"):
+                    self.sb.hover_and_click(consent_checkbox_selector,
+                                            consent_checkbox_selector,
+                                            hover_by="css selector",
+                                            click_by="css selector")
+                    #self.sb.sleep(1)
+
+            self.sb.scroll_into_view('div:contains("Register")', by="css selector", timeout=None)
             self.sb.sleep(1)
             # Register the Terra account
             self.sb.click('//div[contains(.,"Register") and @role="button"]')
+
             #self.sb.click('div:contains("Register")')
             #self.sb.sleep(2)
             # agree to the silly GDPR cookie banner
@@ -437,15 +474,18 @@ if __name__ == "__main__":
 
     # initial login to account to agree to ToS and change password
     for idx,(user_email,pw_old,pw_new) in enumerate(read_credentials(args.credentials_tsv)):
-        #if not idx>=66:
+        
+        #num_of_most_recent_account_finished = 11
+        #if not idx>=num_of_most_recent_account_finished:
         #    continue
-
+        print(f"logging in to")
         print(f"{idx}\t{user_email}\t{pw_old}\t{pw_new}")
-
+        #break
+        
         authed_user = TrainingUser(user_email, pw_old if args.change_password else pw_new)
 
         if args.change_password:
-            authed_user.change_password(pw_new, initial_password_change=True)
+            authed_user.change_password(pw_new, initial_password_change=False)
 
         authed_user.login_to_terra()
 

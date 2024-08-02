@@ -85,7 +85,7 @@ Using a cloned workspace will ensure that the compute jobs and their outputs you
  - Expand the workspace actions menu by clicking the round button with three dots (vertical ellipsis) in the upper right corner
  - Select **Clone**
  - In the modal dialog box that appears: 
-  - Give the new (clone) workspace a descriptive `Workspace name` -- for the purposes of this workshop, include your initials or name in order to uniquely identify it (e.g. "VEME NGS 2023 Joe Smith").
+  - Give the new (clone) workspace a descriptive `Workspace name` -- for the purposes of this workshop, include your initials or name in order to uniquely identify it (e.g. "VEME NGS 2024 Jane Smith").
   - Set the `Billing project` to "veme-training" (if it isn't already).
   - Leave the `Bucket location` and `Description` as their default values.
   - **Do not check** the "workspace will have protected data" box, and **do not** select an Authorization domain -- these will (intentionally) make data access much more difficult, and selecting these options is unnecessary for most work on Terra, especially training workshops.
@@ -208,5 +208,5 @@ Below are what the outputs should look like for our four EBOV genomes. The x-axi
 ## Other related resources
 
 See also:
- - For CLI methods on the same data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_2023_NGS_Variant_Calling/)
+ - For CLI methods on the same data set for this workshop, see [Taylor Paisie's VEME notes](https://taylorpaisie.github.io/VEME_2024_NGS_Variant_Calling/)
  - The [TheiaCoV workflows for viral genomics](https://public-health-viral-genomics-theiagen.readthedocs.io/en/latest/overview.html) are highly popular in public health labs and come with a lot of documentation, training, and support. This is the recommended starting point for the most common microbial genomics analysis needs. The reference-based analysis workflows work well for a large range of viral taxa (they also have bacterial and eukaryotic workflows) and accept inputs for paired and single end Illumina data as well as ONT and ClearLabs data. They do not currently have a *de novo* assembly workflow, so this training utilizes the Broad Institute's *de novo* workflows instead.

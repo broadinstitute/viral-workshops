@@ -48,7 +48,7 @@ data set, what we did to populate these workspaces was:
 | Palmetto-MiniK2 | Palmetto | gs://fc-9c0b667b-b35d-4554-937e-ea40fcd95c0d/input_data/metagenomics/Palmetto-250k.fastq.gz | gs://pathogen-public-dbs/jhu/minikraken2_v2_8GB_201904_retar.tar.zst |
 
 4. Ran the `fastq_to_ubam` workflow on all rows of the `metagenomics` table, with `platform_name` = "ILLUMINA",
-`library_name` = "1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
+`library_name` = "l1", `sample_name` = `this.sample`, and `fastq_1` = `this.fastq1`.
 5. Added the following rows to the Workspace Data table:
   - `workspace.kraken2_db_pluspf` = `gs://pathogen-public-dbs/jhu/k2_pluspf_20221209.tar.zst`
   - `workspace.kraken2_db_broad_custom` = `gs://pathogen-public-dbs/v1/kraken2-broad-20200505.tar.zst`

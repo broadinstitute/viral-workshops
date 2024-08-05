@@ -191,10 +191,8 @@ The numeric counts and metrics give a holistic summary of the sequencing perform
 
 You can click on the live links for any file element in the Terra data table and download them, or preview them in your browser. As an example, click on the `SRR1972917.coverage_plot.pdf` live link in the `coverage_plot` column of the `G5723.1` row of the `ebov` data table. This will open a "File Details" box where you can access this file three different ways:
 1. Click the blue DOWNLOAD button to download it to your computer. You can then open the downloaded file in a browser to view.
-2. If you have the gcloud API installed in a command line environment, copy and paste the `gsutil cp` command to your terminal and it will download the file that way.
-3. Click on "View this file in the Google Cloud Storage Browser".
-4. This opens not the file, but its parent directory in a web browser for Google Cloud buckets. This directory will contain many other files, but look for the link to the file you were looking for originally (SRR1972917.coverage_plot.pdf), and click that.
-5. This leads to an "Object details" page with information and several links for this particular file. Click the "Authenticated URL" link. This will open the krona plot in your web browser.
+2. If you have the [gcloud API CLI](https://cloud.google.com/cli?hl=en) installed in a command-line environment, and copy and paste the `gcloud storage cp` command to your terminal, the file will be downloaded that way.
+3. If you click the "View this file in the Google Cloud Storage Browser", an external page will be opened in the web browser showing the file where it resites in its Google Storage bucket. This directory will contain many other files, but look for the link to the file you were looking for originally (`SRR1972917.coverage_plot.pdf`), and click it. An "Object details" page will open with information and several links for this particular file. Clicking the "Authenticated URL" link will open the krona plot in your web browser.
 
 Repeat the above steps for all four results to open in separate tabs.
 

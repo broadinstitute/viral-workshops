@@ -118,30 +118,14 @@ Configure the following workflow inputs to reference the databases referenced in
  - `demux_deplete.bwaDbs` = `workspace.bwaDbs`
  - `demux_deplete.spikein_db` = `workspace.spikein_db`
 
+Set the following parameter so rows will be created for the demultiplexed data in the `library` and `sample` tables:
+ - `demux_deplete.insert_demux_outputs_into_terra_tables` = `true`
+
 Click the **Save** button above the workflow input text boxes.
 
 If input data have been selected and all of the required workflow inputs are specified, the **Run** button should be blue. Click the button to begin demultiplexing and depletion. A modal dialog will appear providing an opportunity to enter a comment about the compute job. Enter a comment if desired, and click **Launch**.
 
 **_WAIT FOR DEMULTIPLEXING TO COMPLETE_**
-
-## Use an interactive notebooks to create a table of samples after demultiplexing
-
-Following demultiplexing, an interactive Jupyer notebook will be used to create or add rows to a table with per-sample data.
-
-### Run the notebook
-
-To create or use a notebook, a virtual compute instance containing Jupyter must be created or re-used.
-These instances can be created or accessed via the **Analyses** tab of a Terra workspace.
-
-On the **Analyses** tab, click `create_data_table_tsv.ipynb`
-
-To create a new Jupyter notebook, click **+ START**, and click the **jupyter** button.
-
-Navigate to the `flowcell` table, and copy the value of the `flowcell_id` for the row of the run being demultiplexed.
-
-Navigate back to the Jupyer notebook and paste the `flowcell_id` in the text string, `flowcell_data_id`. 
-
-From the **Cell** menu of the embedded Jupyer environment, click **Run All**. After a moment, the notebook will create a new table called `sample` and add a row for each demultiplexed library.
 
 ## Inspect the output of demultiplexing
 

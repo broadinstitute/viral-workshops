@@ -37,12 +37,12 @@ A number of additional columns can be included with metadata helpful for downstr
 |------------------|----------------|-------------------|
 |                  |                |                   |
 
- - `library_strategy`: the type of library preparation used (ex. `AMPLICON`, `RNA-Seq`, `WGS`) **_Controlled vocabularity_**
- - `library_source`: the source material (ex. `VIRAL RNA`, `GENOMIC`, `SYNTHETIC`) **_Controlled vocabularity_**
- - `library_selection`: the selection, enrichment, or screening process used (ex. `PCR`, `RANDOM`, `RT-PCR`) **_Controlled vocabulary_**
+ - `library_strategy`: the type of library preparation used (ex. `AMPLICON`, `RNA-Seq`, `WGS`) **_controlled vocabularity_**
+ - `library_source`: the source material (ex. `VIRAL RNA`, `GENOMIC`, `SYNTHETIC`) **_controlled vocabularity_**
+ - `library_selection`: the selection, enrichment, or screening process used (ex. `PCR`, `RANDOM`, `RT-PCR`) **_controlled vocabulary_**
  - `design_description`: free text briefly describing methods used (ex. `RandomPrimer-SSIV_NexteraXT`, `RandomPrimer-SSIV_ARTICv3_NexteraFlex-Enrichment`)
 
-For `library_strategy`, `library_source` and `library_selection`, the terms used must conform to a **_controlled vocabulary_** specified by NCBI; see the "Library and Platform Terms" tab of the [SRA metadata submission template](https://ftp-trace.ncbi.nlm.nih.gov/sra/metadata_table/SRA_metadata_acc.xlsx) (`*.xlsx` file) for a list of current valid values.
+The values entered for the `library_strategy`, `library_source` and `library_selection` fields must conform to a **_controlled vocabulary_** of terms specified by NCBI; see the "Library and Platform Terms" tab of the [SRA metadata submission template](https://ftp-trace.ncbi.nlm.nih.gov/sra/metadata_table/SRA_metadata_acc.xlsx) (MS Excel `*.xlsx` file) for a current list of valid values.
 
 #### Sample sheet columns for commonly used library-preparation protocols
 

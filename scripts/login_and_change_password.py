@@ -35,6 +35,11 @@ parser.add_argument('--change_password',
                         dest='change_password',
                         action='store_true',  
                         help="""If specified, a password change will be performed""")
+parser.add_argument('--initial_password_change', 
+                        dest='initial_password_change',
+                        action='store_true',  
+                        help="""Specify if this is the first time logging into and changing the password""")
+
 parser.add_argument('--clone_workspace', 
                         dest='clone_workspace',
                         type=str,
@@ -140,17 +145,28 @@ class TrainingUser(object):
 
         self.username=username
 
-        self.sb.open("https://www.google.com/gmail/about/")
-        self.sb.click('a[data-action="sign in"]')
+        #self.sb.open("https://www.google.com/gmail/about/")
+        #self.sb.open("https://www.google.com/gmail")
+        self.sb.open("https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com")
+        #self.sb.open("https://accounts.google.com/")
+        #self.sb.click('a[data-action="sign in"]')
         self.sb.type('input[type="email"]', f"{username}")
         self.sb.click('button:contains("Next")')
         self.sb.wait_for_element_not_visible('input[type="email"]', by="css selector", timeout=75)
         #self.sb.sleep(9)
+        self.sb.sleep(0.75)
 
         self.sb.type('input[type="password"]', password)
+        self.sb.sleep(0.75)
         self.sb.click('button:contains("Next")')
-        #self.sb.sleep(3)
-        self.sb.wait_for_element_not_visible('input[type="password"]', by="css selector", timeout=75)
+        #self.sb.sleep(2)
+        #self.sb.wait_for_element_not_visible('input[type="password"]', by="css selector", timeout=75)
+        #self.sb.wait_for_element_not_visible('button:contains("Change password")', by="css selector", timeout=75)
+        
+        self.sb.wait_for_element_not_visible('input[aria-label="Enter your password"]', by="css selector", timeout=75)
+
+        #if self.sb.is_element_present('input[name="Passwd"]', by="css selector"):
+        #    self.sb.wait_for_element_not_visible('input[name="Passwd"]', by="css selector", timeout=75)
 
         self.sb.sleep(1)
 
@@ -159,17 +175,22 @@ class TrainingUser(object):
         if self.sb.is_element_present(tos_agree_button_selector, by="css selector"):
             self.sb.click(tos_agree_button_selector)
 
-        #self.sb.click('button:contains("I understand")') #<input type="submit" class="MK9CEd MVpUfe" jsname="M2UYVd" jscontroller="rrJN5c" jsaction="aJAbCd:zbvklb" name="confirm" value="I understand" id="confirm">
+            #self.sb.click('button:contains("I understand")') #<input type="submit" class="MK9CEd MVpUfe" jsname="M2UYVd" jscontroller="rrJN5c" jsaction="aJAbCd:zbvklb" name="confirm" value="I understand" id="confirm">
 
-        self.sb.wait_for_element_not_visible('input[value="I understand"]', by="css selector", timeout=60)
+            self.sb.wait_for_element_not_visible('input[value="I understand"]', by="css selector", timeout=60)
 
-        #self.sb.sleep(2)
+        self.sb.sleep(1.5)
 
         self.logged_in_to_google=True
 
     def change_password(self, password_new, initial_password_change=False):
         if initial_password_change:
+        #if "Create a strong password":
             print("passwd path 1")
+
+            # initial password change:
+            # <input id="Password" name="Password" type="password" spellcheck="false" autofocus="" class="mCAa0e" jsname="pRFXed">
+            # <input id="ConfirmPassword" name="ConfirmPassword" type="password" spellcheck="false" class="mCAa0e" jsname="pRFXed">
             
             # initial prompt for password change
             if self.sb.is_element_present('input[name="Password"]', by="css selector"):
@@ -278,6 +299,9 @@ class TrainingUser(object):
             self.sb.type("//input[@id=//label[contains(.,'Department')]/@for]", "n/a")
             self.sb.type("//input[@id=//label[contains(.,'Title')]/@for]", "training account")
             #self.sb.sleep(1)
+
+            self.sb.scroll_into_view('span:contains("I am not a part of an organization")', by="css selector", timeout=None)
+            self.sb.click('span:contains("I am not a part of an organization")', by="css selector", timeout=None)
 
             # Terra requires users to actually open the ToS prior to agreeing
             self.sb.scroll_into_view('div:contains("Read Terra Platform Terms of Service here")', by="css selector", timeout=None)
@@ -475,17 +499,19 @@ if __name__ == "__main__":
     # initial login to account to agree to ToS and change password
     for idx,(user_email,pw_old,pw_new) in enumerate(read_credentials(args.credentials_tsv)):
         
-        #num_of_most_recent_account_finished = 11
-        #if not idx>=num_of_most_recent_account_finished:
-        #    continue
+        #num_of_most_recent_account_finished = 30 # 30 is the most recent fully-configured Terra user
+        num_of_most_recent_account_finished = 21
+        if (idx+1)<=num_of_most_recent_account_finished:
+            continue
         print(f"logging in to")
         print(f"{idx}\t{user_email}\t{pw_old}\t{pw_new}")
+        #continue
         #break
         
         authed_user = TrainingUser(user_email, pw_old if args.change_password else pw_new)
 
         if args.change_password:
-            authed_user.change_password(pw_new, initial_password_change=False)
+            authed_user.change_password(pw_new, initial_password_change=args.initial_password_change)
 
         authed_user.login_to_terra()
 

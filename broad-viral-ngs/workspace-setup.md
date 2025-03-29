@@ -78,51 +78,107 @@ A cell in one table can reference one or more rows in another table; for example
 ```mermaid
 %%{ init: { 'flowchart': { 'curve': 'basis' } } }%%
 flowchart LR
+    
+    
     subgraph flowcell
-    flowcell1:::fc-nostroke
-    flowcell2:::fc-nostroke
-    flowcell3:::fc-nostroke
+    flowcell1:::fc-nostroke1
+    flowcell2:::fc-nostroke2
+    flowcell3:::fc-nostroke3
     end
     subgraph library
-    flowcell1-->sample1.l1:::entity1
-    flowcell1-->sample2.l1:::entity2
-    flowcell1-->sample3.l1:::entity3
-    flowcell2-->sample1.l2:::entity1
-    flowcell2-->sample2.l2:::entity2
-    flowcell2-->sample3.l2:::entity3
-    flowcell3-->sample4.l1:::entity4
-    flowcell3-->sample5.l1:::entity5
-    flowcell3-->sample6.l1:::entity6
+    flowcell1==>sample1.l1:::entity1 & sample2.l1:::entity1 & sample3.l1:::entity1
+    flowcell2===sample1.l2:::entity2 & sample2.l2:::entity2 & sample3.l2:::entity2
+    flowcell3===sample4.l1:::entity4 & sample5.l1:::entity5 & sample6.l1:::entity6
     end
     subgraph sample
-    sample1.l1-->sample1:::set_entity1
-    sample1.l2-->sample1:::set_entity1
-    sample2.l1-->sample2:::set_entity2
-    sample2.l2-->sample2:::set_entity2
-    sample3.l1-->sample3:::set_entity3
-    sample3.l2-->sample3:::set_entity3
-    sample4.l1-->sample4:::set_entity4
-    sample5.l1-->sample5:::set_entity5
-    sample6.l1-->sample6:::set_entity6
+    sample1@{ shape: processes}
+    sample2@{ shape: processes}
+    sample3@{ shape: processes}
+    sample1.l1:::set_entity_border1 & sample1.l2:::set_entity_border1==>sample1:::set_entity1
+    sample2.l1:::set_entity_border2 & sample2.l2:::set_entity_border2==>sample2:::set_entity2
+    sample3.l1:::set_entity_border3 & sample3.l2:::set_entity_border3==>sample3:::set_entity3
+    sample4.l1:::set_entity_border4==>sample4:::set_entity4
+    sample5.l1:::set_entity_border5==>sample5:::set_entity5
+    sample6.l1:::set_entity_border6==>sample6:::set_entity6
     end
-    classDef fc-nostroke fill:green, color:#fff, stroke-width:0px
-    classDef set_entity1 fill:red,color:#fff,stroke:red,stroke-width:2px
-    classDef set_entity2 fill:yellow,color:#000,stroke:yellow,stroke-width:2px
-    classDef set_entity3 fill:blue,color:#fff,stroke:blue,stroke-width:2px
-    classDef set_entity4 fill:#888,color:#fff,stroke:#888,stroke-width:2px
-    classDef set_entity5 fill:#666,color:#fff,stroke:#666,stroke-width:2px
-    classDef set_entity6 fill:#444,color:#fff,stroke:#444,stroke-width:2px
-    
-    classDef entity1 stroke:red,color:#000,fill:#fff,stroke-width:3px
-    classDef entity2 stroke:yellow,color:#000,fill:#fff,stroke-width:3px
-    classDef entity3 stroke:blue,color:#000,fill:#fff,stroke-width:3px
+    subgraph assembly
+    sample1==>sample1-taxon1_assembly:::taxon1
+    sample1==>sample1-taxon2_assembly:::taxon2
+    sample2==>sample2-taxon1_assembly:::taxon1
+    sample3==>sample3-taxon1_assembly:::taxon1
+    sample4==>sample4-taxon1_assembly:::taxon1
+    sample4==>sample4-taxon3_assembly:::taxon3
+    sample5==>sample5-taxon4_assembly:::taxon4
+    sample6==>sample6-taxon1_assembly:::taxon1
+    end
 
-    classDef entity4 stroke:#888,color:#000,fill:#fff,stroke-width:3px
-    classDef entity5 stroke:#666,color:#000,fill:#fff,stroke-width:3px
-    classDef entity6 stroke:#444,color:#000,fill:#fff,stroke-width:3px
+    classDef fc-nostroke1 fill:#5BBCD6, color:#000, stroke-width:0px
+    classDef fc-nostroke2 fill:#00A08A, color:#000, stroke-width:0px
+    classDef fc-nostroke3 fill:#F2AD00, color:#fff, stroke-width:0px
+
+    classDef entity1 stroke:#5BBCD6
+    classDef entity2 stroke:#00A08A
+    classDef entity3 stroke:blue
+    classDef entity4 stroke:#F2AD00
+    classDef entity5 stroke:#F2AD00
+    classDef entity6 stroke:#F2AD00
+
+    classDef marker stroke-width:0px,fill:context-stroke
+
+    linkStyle default stroke-width:5px
+    linkStyle 0,1,2 stroke:#5BBCD6
+    linkStyle 3,4,5 stroke:#00A08A
+    linkStyle 6,7,8 stroke:#F2AD00
+
+    linkStyle 9,10 stroke:#D9D0D3
+    linkStyle 11,12 stroke:#79402E
+    linkStyle 13,14 stroke:#CCBA72
+    linkStyle 15 stroke:#4e4e4e
+    linkStyle 16 stroke: #9986A5
+    linkStyle 17 stroke: #8D8680
+
+    %% linkStyle 18,19 stroke:#D9D0D3
+    %% linkStyle 20 stroke:#79402E
+    %% linkStyle 21 stroke:#CCBA72
+    %% linkStyle 22,23 stroke:#4e4e4e
+    %% linkStyle 24 stroke: #9986A5
+    %% linkStyle 25 stroke: #8D8680
+
+    linkStyle 18,20,21,22,25 stroke:red
+    linkStyle 19 stroke:yellow
+    linkStyle 23 stroke:blue
+    linkStyle 24 stroke:#888
+
+    classDef set_entity1 fill:#D9D0D3,color:#000,stroke:#B3ABAE,stroke-width:1px
+    classDef set_entity2 fill:#79402E,color:#fff,stroke:#522B1F,stroke-width:1px
+    classDef set_entity3 fill:#CCBA72,color:#000,stroke:#A6975D,stroke-width:1px
+    classDef set_entity4 fill:#4e4e4e,color:#fff,stroke:#292929,stroke-width:1px
+    classDef set_entity5 fill:#9986A5,color:#ffffff,stroke:#766880,stroke-width:1px
+    classDef set_entity6 fill:#8D8680,color:#fff,stroke:#66615D,stroke-width:1px
+    
+    %%libraries grouped by samples
+    classDef set_entity_border1 color:#000,fill:#D9D0D3,stroke-width:10px,rx:5px,ry:5px
+    classDef set_entity_border2 color:#fff,fill:#79402E,stroke-width:10px,rx:5px,ry:5px
+    classDef set_entity_border3 color:#000,fill:#CCBA72,stroke-width:10px,rx:5px,ry:5px
+    classDef set_entity_border4 color:#fff,fill:#4e4e4e,stroke-width:10px,rx:5px,ry:5px
+    classDef set_entity_border5 color:#fff,fill:#9986A5,stroke-width:10px,rx:5px,ry:5px
+    classDef set_entity_border6 color:#fff,fill:#8D8680,stroke-width:10px,rx:5px,ry:5px
+
+    classDef taxon1 fill:red,color:#fff,stroke-width:0px
+    classDef taxon2 fill:yellow,color:#000,stroke-width:0px
+    classDef taxon3 fill:blue,color:#fff,stroke-width:0px
+    classDef taxon4 fill:#888,color:#000,stroke-width:0px
+
     style flowcell fill:#eee,stroke:#333,stroke-width:0px
     style library fill:#eee,stroke:#333,stroke-width:0px
     style sample fill:#eee,stroke:#333,stroke-width:0px
+    style assembly fill:#eee,stroke:#333,stroke-width:0
+
+    
+    %%classDef 'flowchart-link' paint-order: stroke
+    classDef default paint-order: stroke fill markers
+    %%classDef path paint-order: stroke markers fill
+    
 
 ```
 

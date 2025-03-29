@@ -1,5 +1,10 @@
 {%- if content contains 'mermaid' -%}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.5.0/mermaid.min.js" integrity="sha512-3EZqKCkk3nMLmbrI7mfry81KH7dkzy/BoDfQrodwLQnS/RbsVlERdYP6J0oiJegRUxSOmx7Y35WNbVKSw7mipw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+    .language-mermaid svg {
+        width: 950px;
+    }
+</style>
 <script>
 const config = {
     startOnLoad:true,
